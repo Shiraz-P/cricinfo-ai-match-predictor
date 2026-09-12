@@ -1,0 +1,51 @@
+# -------------------------------------------
+# Python cache / compiled files
+# -------------------------------------------
+__pycache__/
+*.py[cod]
+
+# -------------------------------------------
+# Virtual environments
+# -------------------------------------------
+venv/
+.venv/
+env/
+
+# -------------------------------------------
+# IDE / Editor files
+# -------------------------------------------
+.vscode/
+.idea/
+
+# -------------------------------------------
+# Operating system files
+# -------------------------------------------
+Thumbs.db
+.DS_Store
+
+# -------------------------------------------
+# Temporary / log files
+# -------------------------------------------
+*.log
+*.tmp
+
+# -------------------------------------------
+# Cricinfo AI generated runtime logs
+# These are generated during predictions
+# -------------------------------------------
+data/prediction_log.csv
+data/shadow_comparison_log.csv
+
+# -------------------------------------------
+# Python packaging
+# -------------------------------------------
+build/
+dist/
+*.egg-info/
+
+# Large extracted raw cricket dataset
+data/t20s_male_json/
+
+# Runtime prediction logs
+data/prediction_log.csv
+data/shadow_comparison_log.csv
