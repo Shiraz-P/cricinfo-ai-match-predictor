@@ -49,3 +49,41 @@ data/t20s_male_json/
 # Runtime prediction logs
 data/prediction_log.csv
 data/shadow_comparison_log.csv
+
+# ==================================================
+# Local source/reference repositories
+# ==================================================
+afghanistan_history/
+afghanistan_source/
+data/afghanistan_json/
+
+# ==================================================
+# Application backups
+# ==================================================
+app_before_afghanistan_merge.py
+app_before_branding.py
+app_broken_branding_backup.py
+app_v1_backup.py
+
+# ==================================================
+# Script backups / development versions
+# ==================================================
+script/predict_match_backup.py
+script/run_project_demo_backup.py
+script/acquire_afghanistan_recent.py
+script/acquire_afghanistan_recent_v2.py
+script/build_candidate_dataset.py
+script/diagnose_afghanistan_skipped.py
+
+# ==================================================
+# Intermediate Afghanistan datasets
+# ==================================================
+data/matches_afghanistan_recent.csv
+data/matches_afghanistan_recent_v2.csv
+data/matches_afghanistan_verified.csv
+data/matches_candidate.csv
+
+# ==================================================
+# Runtime / shadow prediction logs
+# ==================================================
+data/shadow_v12_log.csv
