@@ -1,0 +1,686 @@
+date,team1,team2,winner,actual_team1_won,champion_prediction,ablation_prediction,challenger_prediction,champion_correct,ablation_correct,challenger_correct
+2025-07-22,Bahrain,Rwanda,Bahrain,1,1,1,1,True,True,True
+2025-07-22,Bangladesh,Pakistan,Bangladesh,1,0,0,0,False,False,False
+2025-07-22,Hong Kong,Malaysia,Malaysia,0,0,0,0,True,True,True
+2025-07-22,Malawi,Rwanda,Rwanda,0,0,0,0,True,True,True
+2025-07-22,Samoa,Singapore,Singapore,0,0,0,0,True,True,True
+2025-07-22,South Africa,New Zealand,New Zealand,0,0,0,0,True,True,True
+2025-07-22,West Indies,Australia,Australia,0,0,0,0,True,True,True
+2025-07-23,Bahrain,Malawi,Bahrain,1,1,1,1,True,True,True
+2025-07-23,Kenya,United Arab Emirates,United Arab Emirates,0,0,0,0,True,True,True
+2025-07-23,Malaysia,Singapore,Malaysia,1,1,1,1,True,True,True
+2025-07-23,Rwanda,Malawi,Malawi,0,1,1,1,False,False,False
+2025-07-23,Samoa,Hong Kong,Hong Kong,0,0,0,0,True,True,True
+2025-07-24,Hong Kong,Singapore,Hong Kong,1,1,1,1,True,True,True
+2025-07-24,New Zealand,Zimbabwe,New Zealand,1,1,1,1,True,True,True
+2025-07-24,Pakistan,Bangladesh,Pakistan,1,1,1,1,True,True,True
+2025-07-24,Samoa,Malaysia,Malaysia,0,0,0,0,True,True,True
+2025-07-25,Bahrain,Rwanda,Bahrain,1,1,1,1,True,True,True
+2025-07-25,Hungary,Luxembourg,Hungary,1,0,0,0,False,False,False
+2025-07-25,Hungary,Romania,Romania,0,1,0,0,False,True,True
+2025-07-25,Kenya,Uganda,Uganda,0,0,0,0,True,True,True
+2025-07-25,Malawi,Bahrain,Bahrain,0,0,0,0,True,True,True
+2025-07-25,Romania,Austria,Austria,0,1,1,1,False,False,False
+2025-07-25,West Indies,Australia,Australia,0,0,0,0,True,True,True
+2025-07-26,Austria,Luxembourg,Austria,1,1,1,1,True,True,True
+2025-07-26,Finland,Estonia,Estonia,0,0,0,0,True,True,True
+2025-07-26,Hong Kong,Malaysia,Malaysia,0,0,0,0,True,True,True
+2025-07-26,Hungary,Austria,Austria,0,0,0,0,True,True,True
+2025-07-26,New Zealand,South Africa,New Zealand,1,0,0,0,False,False,False
+2025-07-26,Romania,Luxembourg,Romania,1,1,1,1,True,True,True
+2025-07-26,Rwanda,Malawi,Malawi,0,1,0,0,False,True,True
+2025-07-26,United Arab Emirates,Nigeria,United Arab Emirates,1,1,1,1,True,True,True
+2025-07-26,West Indies,Australia,Australia,0,0,0,0,True,True,True
+2025-07-27,Bahrain,Malawi,Bahrain,1,1,1,1,True,True,True
+2025-07-27,Estonia,Finland,Finland,0,1,1,1,False,False,False
+2025-07-27,Hungary,Luxembourg,Hungary,1,1,1,1,True,True,True
+2025-07-27,Nigeria,Kenya,Kenya,0,0,0,0,True,True,True
+2025-07-27,Uganda,United Arab Emirates,Uganda,1,1,1,1,True,True,True
+2025-07-28,West Indies,Australia,Australia,0,0,0,0,True,True,True
+2025-07-31,Pakistan,West Indies,Pakistan,1,1,1,1,True,True,True
+2025-08-02,Pakistan,West Indies,West Indies,0,1,1,1,False,False,False
+2025-08-02,Switzerland,Estonia,Switzerland,1,1,1,1,True,True,True
+2025-08-03,Pakistan,West Indies,Pakistan,1,1,1,1,True,True,True
+2025-08-03,Switzerland,Estonia,Switzerland,1,1,1,1,True,True,True
+2025-08-03,Switzerland,Estonia,Switzerland,1,1,1,1,True,True,True
+2025-08-07,Croatia,Cyprus,Cyprus,0,0,0,0,True,True,True
+2025-08-07,Cyprus,Croatia,Cyprus,1,1,1,1,True,True,True
+2025-08-08,Croatia,Cyprus,Cyprus,0,0,0,0,True,True,True
+2025-08-08,Cyprus,Croatia,Cyprus,1,1,1,1,True,True,True
+2025-08-08,Norway,France,Norway,1,1,0,0,True,False,False
+2025-08-08,Sweden,Austria,Austria,0,0,0,0,True,True,True
+2025-08-09,France,Austria,Austria,0,0,0,0,True,True,True
+2025-08-09,Norway,Sweden,Norway,1,1,1,1,True,True,True
+2025-08-10,Australia,South Africa,Australia,1,1,1,1,True,True,True
+2025-08-10,Norway,Austria,Austria,0,0,0,0,True,True,True
+2025-08-10,Sweden,France,France,0,1,1,1,False,False,False
+2025-08-12,South Africa,Australia,South Africa,1,0,0,0,False,False,False
+2025-08-14,Guernsey,Papua New Guinea,Papua New Guinea,0,1,1,1,False,False,False
+2025-08-16,South Africa,Australia,Australia,0,0,0,0,True,True,True
+2025-08-17,Norway,Hungary,Norway,1,1,1,1,True,True,True
+2025-08-17,Sweden,Hungary,Sweden,1,0,0,0,False,False,False
+2025-08-17,Sweden,Norway,Norway,0,0,0,0,True,True,True
+2025-08-21,Czech Republic,Romania,Czech Republic,1,0,0,0,False,False,False
+2025-08-21,Romania,Czech Republic,Romania,1,1,1,1,True,True,True
+2025-08-22,Romania,Czech Republic,Czech Republic,0,1,1,1,False,False,False
+2025-08-22,Romania,Czech Republic,Romania,1,1,1,1,True,True,True
+2025-08-23,Austria,Belgium,Austria,1,1,1,1,True,True,True
+2025-08-23,Belgium,Austria,Austria,0,0,0,0,True,True,True
+2025-08-24,Belgium,Austria,Austria,0,0,0,0,True,True,True
+2025-08-24,Belgium,Austria,Austria,0,0,0,0,True,True,True
+2025-08-30,Netherlands,Bangladesh,Bangladesh,0,0,0,0,True,True,True
+2025-08-30,Pakistan,United Arab Emirates,Pakistan,1,1,1,1,True,True,True
+2025-09-01,Netherlands,Bangladesh,Bangladesh,0,0,0,0,True,True,True
+2025-09-03,Zimbabwe,Sri Lanka,Sri Lanka,0,0,0,0,True,True,True
+2025-09-04,Pakistan,United Arab Emirates,Pakistan,1,1,1,1,True,True,True
+2025-09-06,Sri Lanka,Zimbabwe,Zimbabwe,0,1,1,1,False,False,False
+2025-09-07,Zimbabwe,Sri Lanka,Sri Lanka,0,0,0,0,True,True,True
+2025-09-10,South Africa,England,South Africa,1,0,0,0,False,False,False
+2025-09-10,United Arab Emirates,India,India,0,0,0,0,True,True,True
+2025-09-11,Hong Kong,Bangladesh,Bangladesh,0,1,1,1,False,False,False
+2025-09-12,England,South Africa,England,1,1,1,1,True,True,True
+2025-09-12,Eswatini,Mozambique,Eswatini,1,0,0,0,False,False,False
+2025-09-12,Eswatini,Mozambique,Eswatini,1,1,1,1,True,True,True
+2025-09-12,Pakistan,Oman,Pakistan,1,1,1,1,True,True,True
+2025-09-13,Bangladesh,Sri Lanka,Sri Lanka,0,0,0,0,True,True,True
+2025-09-13,Eswatini,Mozambique,Eswatini,1,1,1,1,True,True,True
+2025-09-14,Pakistan,India,India,0,0,0,0,True,True,True
+2025-09-15,Hong Kong,Sri Lanka,Sri Lanka,0,0,0,0,True,True,True
+2025-09-15,United Arab Emirates,Oman,United Arab Emirates,1,1,1,1,True,True,True
+2025-09-15,Zimbabwe,Namibia,Zimbabwe,1,0,0,0,False,False,False
+2025-09-16,Namibia,Zimbabwe,Zimbabwe,0,1,1,1,False,False,False
+2025-09-17,Ireland,England,England,0,0,0,0,True,True,True
+2025-09-17,Pakistan,United Arab Emirates,Pakistan,1,1,1,1,True,True,True
+2025-09-18,Namibia,Zimbabwe,Namibia,1,0,0,0,False,False,False
+2025-09-19,India,Oman,India,1,1,1,1,True,True,True
+2025-09-20,Sri Lanka,Bangladesh,Bangladesh,0,1,1,1,False,False,False
+2025-09-21,Ireland,England,England,0,0,0,0,True,True,True
+2025-09-21,Pakistan,India,India,0,0,0,0,True,True,True
+2025-09-23,Sri Lanka,Pakistan,Pakistan,0,0,0,0,True,True,True
+2025-09-24,India,Bangladesh,India,1,1,1,1,True,True,True
+2025-09-25,Pakistan,Bangladesh,Pakistan,1,1,1,1,True,True,True
+2025-09-26,Botswana,Tanzania,Tanzania,0,0,0,0,True,True,True
+2025-09-26,Malawi,Nigeria,Nigeria,0,1,1,1,False,False,False
+2025-09-26,Namibia,Kenya,Namibia,1,1,1,1,True,True,True
+2025-09-26,Uganda,Zimbabwe,Zimbabwe,0,1,1,1,False,False,False
+2025-09-27,Nepal,West Indies,Nepal,1,1,1,1,True,True,True
+2025-09-28,Malawi,Kenya,Malawi,1,0,0,0,False,False,False
+2025-09-28,Namibia,Nigeria,Namibia,1,1,1,1,True,True,True
+2025-09-28,Pakistan,India,India,0,0,0,0,True,True,True
+2025-09-28,Tanzania,Uganda,Tanzania,1,0,0,0,False,False,False
+2025-09-28,Zimbabwe,Botswana,Zimbabwe,1,1,1,1,True,True,True
+2025-09-29,Kuwait,Oman,Oman,0,1,1,1,False,False,False
+2025-09-29,Nepal,West Indies,Nepal,1,1,1,1,True,True,True
+2025-09-30,Botswana,Uganda,Uganda,0,0,0,0,True,True,True
+2025-09-30,Malawi,Namibia,Namibia,0,0,0,0,True,True,True
+2025-09-30,Nepal,West Indies,West Indies,0,1,1,1,False,False,False
+2025-09-30,Nigeria,Kenya,Kenya,0,1,1,1,False,False,False
+2025-09-30,Zimbabwe,Tanzania,Zimbabwe,1,1,0,0,True,False,False
+2025-10-01,New Zealand,Australia,Australia,0,0,0,0,True,True,True
+2025-10-02,Kenya,Zimbabwe,Zimbabwe,0,0,0,0,True,True,True
+2025-10-02,Namibia,Tanzania,Namibia,1,1,1,1,True,True,True
+2025-10-02,Nigeria,Botswana,Nigeria,1,1,1,1,True,True,True
+2025-10-02,Uganda,Malawi,Uganda,1,1,1,1,True,True,True
+2025-10-04,Kenya,Tanzania,Kenya,1,0,0,0,False,False,False
+2025-10-04,Malawi,Botswana,Malawi,1,1,1,1,True,True,True
+2025-10-04,Namibia,Zimbabwe,Zimbabwe,0,1,1,1,False,False,False
+2025-10-04,New Zealand,Australia,Australia,0,0,0,0,True,True,True
+2025-10-04,Uganda,Nigeria,Uganda,1,1,1,1,True,True,True
+2025-10-08,Nepal,Kuwait,Nepal,1,1,0,0,True,False,False
+2025-10-08,Qatar,United Arab Emirates,United Arab Emirates,0,0,0,0,True,True,True
+2025-10-08,Samoa,Oman,Oman,0,0,0,0,True,True,True
+2025-10-09,Kuwait,Japan,Japan,0,0,0,0,True,True,True
+2025-10-09,Malaysia,Qatar,Qatar,0,1,1,1,False,False,False
+2025-10-09,Papua New Guinea,Samoa,Samoa,0,1,1,1,False,False,False
+2025-10-10,Japan,Nepal,Nepal,0,1,1,1,False,False,False
+2025-10-10,Malaysia,United Arab Emirates,United Arab Emirates,0,0,0,0,True,True,True
+2025-10-10,Oman,Papua New Guinea,Oman,1,1,1,1,True,True,True
+2025-10-11,South Africa,Namibia,Namibia,0,0,0,0,True,True,True
+2025-10-12,Japan,Samoa,Japan,1,1,1,1,True,True,True
+2025-10-12,Nepal,United Arab Emirates,Nepal,1,0,0,0,False,False,False
+2025-10-12,Oman,Qatar,Oman,1,1,1,1,True,True,True
+2025-10-13,Nepal,Qatar,Nepal,1,1,1,1,True,True,True
+2025-10-13,United Arab Emirates,Oman,Oman,0,0,0,0,True,True,True
+2025-10-15,Japan,Qatar,Qatar,0,1,1,1,False,False,False
+2025-10-15,Nepal,Oman,Nepal,1,0,0,0,False,False,False
+2025-10-15,United Arab Emirates,Samoa,United Arab Emirates,1,1,1,1,True,True,True
+2025-10-16,Japan,United Arab Emirates,United Arab Emirates,0,1,0,0,False,True,True
+2025-10-16,Samoa,Qatar,Qatar,0,0,0,0,True,True,True
+2025-10-17,Japan,Oman,Oman,0,0,0,0,True,True,True
+2025-10-17,Nepal,Samoa,Nepal,1,1,1,1,True,True,True
+2025-10-18,Austria,Romania,Romania,0,1,1,1,False,False,False
+2025-10-18,Romania,Austria,Austria,0,0,0,0,True,True,True
+2025-10-19,Austria,Romania,Austria,1,1,1,1,True,True,True
+2025-10-19,Romania,Austria,Austria,0,0,0,0,True,True,True
+2025-10-20,England,New Zealand,England,1,0,1,1,False,True,True
+2025-10-27,West Indies,Bangladesh,West Indies,1,1,0,0,True,False,False
+2025-10-28,South Africa,Pakistan,South Africa,1,0,0,0,False,False,False
+2025-10-29,West Indies,Bangladesh,West Indies,1,1,1,1,True,True,True
+2025-10-31,Bangladesh,West Indies,West Indies,0,0,0,0,True,True,True
+2025-10-31,Cyprus,Serbia,Cyprus,1,0,0,0,False,False,False
+2025-10-31,Cyprus,Serbia,Cyprus,1,1,1,1,True,True,True
+2025-10-31,India,Australia,Australia,0,1,1,1,False,False,False
+2025-10-31,South Africa,Pakistan,Pakistan,0,0,0,0,True,True,True
+2025-11-01,Bulgaria,Serbia,Bulgaria,1,1,1,1,True,True,True
+2025-11-01,Serbia,Bulgaria,Bulgaria,0,0,0,0,True,True,True
+2025-11-01,South Africa,Pakistan,Pakistan,0,0,0,0,True,True,True
+2025-11-02,Australia,India,India,0,0,1,1,True,False,False
+2025-11-02,Bulgaria,Cyprus,Cyprus,0,0,0,0,True,True,True
+2025-11-02,Cyprus,Bulgaria,Cyprus,1,1,0,0,True,False,False
+2025-11-03,Bulgaria,Cyprus,Cyprus,0,0,0,0,True,True,True
+2025-11-03,Bulgaria,Cyprus,Cyprus,0,0,0,0,True,True,True
+2025-11-05,West Indies,New Zealand,West Indies,1,0,1,1,False,True,True
+2025-11-06,India,Australia,India,1,1,1,1,True,True,True
+2025-11-06,Myanmar,Indonesia,Indonesia,0,0,0,0,True,True,True
+2025-11-06,New Zealand,West Indies,New Zealand,1,0,0,0,False,False,False
+2025-11-06,Timor-Leste,Indonesia,Indonesia,0,1,0,0,False,True,True
+2025-11-07,Timor-Leste,Myanmar,Myanmar,0,0,0,0,True,True,True
+2025-11-08,Indonesia,Myanmar,Indonesia,1,1,1,1,True,True,True
+2025-11-08,Timor-Leste,Indonesia,Indonesia,0,0,0,0,True,True,True
+2025-11-09,New Zealand,West Indies,New Zealand,1,0,0,0,False,False,False
+2025-11-09,Timor-Leste,Myanmar,Myanmar,0,0,0,0,True,True,True
+2025-11-11,Myanmar,Indonesia,Indonesia,0,0,0,0,True,True,True
+2025-11-11,Timor-Leste,Indonesia,Indonesia,0,0,0,0,True,True,True
+2025-11-12,Myanmar,Timor-Leste,Myanmar,1,1,1,1,True,True,True
+2025-11-12,Qatar,Hong Kong,Qatar,1,0,1,1,False,True,True
+2025-11-13,Hong Kong,Qatar,Hong Kong,1,0,0,0,False,False,False
+2025-11-13,Myanmar,Indonesia,Indonesia,0,0,0,0,True,True,True
+2025-11-13,Timor-Leste,Indonesia,Indonesia,0,0,0,0,True,True,True
+2025-11-13,West Indies,New Zealand,New Zealand,0,0,0,0,True,True,True
+2025-11-14,Myanmar,Timor-Leste,Myanmar,1,1,1,1,True,True,True
+2025-11-16,United Arab Emirates,Oman,Oman,0,0,0,0,True,True,True
+2025-11-18,Bahrain,Indonesia,Bahrain,1,1,1,1,True,True,True
+2025-11-18,Zimbabwe,Pakistan,Pakistan,0,0,0,0,True,True,True
+2025-11-19,Bahrain,Indonesia,Bahrain,1,1,1,1,True,True,True
+2025-11-20,Zimbabwe,Sri Lanka,Zimbabwe,1,0,0,0,False,False,False
+2025-11-21,Indonesia,Bahrain,Bahrain,0,0,0,0,True,True,True
+2025-11-22,Sri Lanka,Pakistan,Pakistan,0,0,0,0,True,True,True
+2025-11-23,Pakistan,Zimbabwe,Pakistan,1,1,1,1,True,True,True
+2025-11-25,Bahrain,Malaysia,Malaysia,0,1,1,1,False,False,False
+2025-11-25,Zimbabwe,Sri Lanka,Sri Lanka,0,0,0,0,True,True,True
+2025-11-27,Ireland,Bangladesh,Ireland,1,1,0,0,True,False,False
+2025-11-27,Sri Lanka,Pakistan,Sri Lanka,1,0,0,0,False,False,False
+2025-11-28,Brazil,Argentina,Argentina,0,0,0,0,True,True,True
+2025-11-29,Ireland,Bangladesh,Bangladesh,0,1,1,1,False,False,False
+2025-11-29,Sri Lanka,Pakistan,Pakistan,0,0,0,0,True,True,True
+2025-11-30,Argentina,Brazil,Argentina,1,1,1,1,True,True,True
+2025-11-30,Thailand,Bahrain,Bahrain,0,0,0,0,True,True,True
+2025-12-02,Ireland,Bangladesh,Bangladesh,0,1,1,1,False,False,False
+2025-12-04,Nigeria,Zambia,Nigeria,1,1,1,0,True,True,False
+2025-12-04,Sierra Leone,Rwanda,Rwanda,0,1,1,1,False,False,False
+2025-12-05,Croatia,Spain,Spain,0,0,0,0,True,True,True
+2025-12-05,Nigeria,Sierra Leone,Nigeria,1,1,1,1,True,True,True
+2025-12-05,Zambia,Rwanda,Rwanda,0,0,0,0,True,True,True
+2025-12-06,Croatia,Spain,Spain,0,0,0,0,True,True,True
+2025-12-06,Nigeria,Rwanda,Nigeria,1,1,1,1,True,True,True
+2025-12-06,Spain,Croatia,Spain,1,1,1,1,True,True,True
+2025-12-06,Zambia,Sierra Leone,Zambia,1,0,0,0,False,False,False
+2025-12-07,Croatia,Spain,Spain,0,0,0,0,True,True,True
+2025-12-07,Sierra Leone,Nigeria,Nigeria,0,0,0,0,True,True,True
+2025-12-07,Spain,Croatia,Spain,1,1,1,1,True,True,True
+2025-12-07,Zambia,Rwanda,Rwanda,0,0,0,0,True,True,True
+2025-12-08,Nigeria,Zambia,Nigeria,1,1,1,1,True,True,True
+2025-12-08,Rwanda,Sierra Leone,Rwanda,1,1,1,1,True,True,True
+2025-12-09,Bahrain,Bhutan,Bahrain,1,1,1,1,True,True,True
+2025-12-09,India,South Africa,India,1,1,1,0,True,True,False
+2025-12-09,Malaysia,Philippines,Malaysia,1,0,0,0,False,False,False
+2025-12-09,Rwanda,Nigeria,Rwanda,1,0,0,0,False,False,False
+2025-12-09,Sierra Leone,Zambia,Zambia,0,0,0,0,True,True,True
+2025-12-09,Thailand,Indonesia,Indonesia,0,1,1,1,False,False,False
+2025-12-10,Indonesia,Malaysia,Malaysia,0,0,0,0,True,True,True
+2025-12-10,Philippines,Singapore,Philippines,1,0,0,0,False,False,False
+2025-12-11,Bahrain,Bhutan,Bahrain,1,1,1,1,True,True,True
+2025-12-11,Nigeria,Sierra Leone,Nigeria,1,1,1,1,True,True,True
+2025-12-11,Philippines,Indonesia,Philippines,1,1,1,1,True,True,True
+2025-12-11,Singapore,Thailand,Singapore,1,1,1,1,True,True,True
+2025-12-11,South Africa,India,South Africa,1,0,0,0,False,False,False
+2025-12-11,Zambia,Rwanda,Zambia,1,0,0,0,False,False,False
+2025-12-12,Bahrain,Bhutan,Bahrain,1,1,1,1,True,True,True
+2025-12-12,Indonesia,Singapore,Singapore,0,0,0,0,True,True,True
+2025-12-12,Nigeria,Zambia,Nigeria,1,1,1,1,True,True,True
+2025-12-12,Rwanda,Sierra Leone,Rwanda,1,1,1,1,True,True,True
+2025-12-12,Thailand,Malaysia,Malaysia,0,0,0,0,True,True,True
+2025-12-13,Bhutan,Bahrain,Bahrain,0,0,0,0,True,True,True
+2025-12-13,Nigeria,Rwanda,Nigeria,1,1,1,1,True,True,True
+2025-12-13,Singapore,Malaysia,Malaysia,0,0,0,0,True,True,True
+2025-12-13,Thailand,Philippines,Philippines,0,0,0,0,True,True,True
+2025-12-13,Zambia,Sierra Leone,Sierra Leone,0,1,1,1,False,False,False
+2025-12-14,Nigeria,Rwanda,Nigeria,1,1,1,1,True,True,True
+2025-12-14,South Africa,India,India,0,0,0,0,True,True,True
+2025-12-14,Zambia,Sierra Leone,Zambia,1,1,1,1,True,True,True
+2025-12-19,India,South Africa,India,1,1,1,1,True,True,True
+2025-12-23,Indonesia,Cambodia,Indonesia,1,0,0,0,False,False,False
+2025-12-23,Indonesia,Cambodia,Indonesia,1,1,0,0,True,False,False
+2025-12-23,Myanmar,Bhutan,Bhutan,0,0,0,0,True,True,True
+2025-12-24,Bhutan,Myanmar,Bhutan,1,1,1,1,True,True,True
+2025-12-24,Cambodia,Indonesia,Indonesia,0,0,0,0,True,True,True
+2025-12-25,Indonesia,Cambodia,Indonesia,1,1,1,1,True,True,True
+2025-12-26,Bhutan,Myanmar,Bhutan,1,1,1,1,True,True,True
+2025-12-26,Cambodia,Indonesia,Indonesia,0,0,0,0,True,True,True
+2025-12-27,Bhutan,Myanmar,Bhutan,1,1,1,1,True,True,True
+2025-12-27,Cambodia,Indonesia,Indonesia,0,0,0,0,True,True,True
+2025-12-27,Cambodia,Indonesia,Indonesia,0,0,0,0,True,True,True
+2025-12-29,Bhutan,Myanmar,Bhutan,1,1,1,1,True,True,True
+2025-12-29,Cambodia,Indonesia,Indonesia,0,0,0,0,True,True,True
+2026-01-07,Sri Lanka,Pakistan,Pakistan,0,0,0,0,True,True,True
+2026-01-11,Sri Lanka,Pakistan,Sri Lanka,1,0,0,0,False,False,False
+2026-01-21,India,New Zealand,India,1,1,1,1,True,True,True
+2026-01-23,Italy,Ireland,Ireland,0,0,0,0,True,True,True
+2026-01-23,New Zealand,India,India,0,0,0,0,True,True,True
+2026-01-25,Ireland,Italy,Ireland,1,1,1,1,True,True,True
+2026-01-25,New Zealand,India,India,0,0,0,0,True,True,True
+2026-01-26,Ireland,Italy,Italy,0,1,1,1,False,False,False
+2026-01-27,West Indies,South Africa,South Africa,0,1,0,0,False,True,True
+2026-01-28,New Zealand,India,New Zealand,1,0,0,0,False,False,False
+2026-01-29,Ireland,United Arab Emirates,Ireland,1,1,0,0,True,False,False
+2026-01-29,Pakistan,Australia,Pakistan,1,0,1,1,False,True,True
+2026-01-29,West Indies,South Africa,South Africa,0,0,0,0,True,True,True
+2026-01-30,Sri Lanka,England,England,0,0,0,0,True,True,True
+2026-01-31,India,New Zealand,India,1,1,1,1,True,True,True
+2026-01-31,Ireland,United Arab Emirates,Ireland,1,1,1,1,True,True,True
+2026-01-31,Pakistan,Australia,Pakistan,1,1,1,1,True,True,True
+2026-01-31,West Indies,South Africa,West Indies,1,0,0,0,False,False,False
+2026-02-01,Pakistan,Australia,Pakistan,1,1,1,1,True,True,True
+2026-02-01,Sri Lanka,England,England,0,0,0,0,True,True,True
+2026-02-03,England,Sri Lanka,England,1,1,1,1,True,True,True
+2026-02-07,India,United States of America,India,1,1,1,1,True,True,True
+2026-02-07,Netherlands,Pakistan,Pakistan,0,0,0,0,True,True,True
+2026-02-07,West Indies,Scotland,West Indies,1,0,0,0,False,False,False
+2026-02-08,England,Nepal,England,1,0,0,0,False,False,False
+2026-02-08,Sri Lanka,Ireland,Sri Lanka,1,1,1,1,True,True,True
+2026-02-09,Oman,Zimbabwe,Zimbabwe,0,1,1,1,False,False,False
+2026-02-09,Scotland,Italy,Scotland,1,0,0,0,False,False,False
+2026-02-09,South Africa,Canada,South Africa,1,0,0,0,False,False,False
+2026-02-10,Namibia,Netherlands,Netherlands,0,0,1,1,True,False,False
+2026-02-10,Pakistan,United States of America,Pakistan,1,1,1,1,True,True,True
+2026-02-10,United Arab Emirates,New Zealand,New Zealand,0,1,0,0,False,True,True
+2026-02-11,Australia,Ireland,Australia,1,1,1,1,True,True,True
+2026-02-11,Qatar,Bahrain,Qatar,1,0,0,0,False,False,False
+2026-02-11,West Indies,England,West Indies,1,0,0,0,False,False,False
+2026-02-12,India,Namibia,India,1,1,1,1,True,True,True
+2026-02-12,Nepal,Italy,Italy,0,1,0,0,False,True,True
+2026-02-12,Sri Lanka,Oman,Sri Lanka,1,0,0,0,False,False,False
+2026-02-13,Canada,United Arab Emirates,United Arab Emirates,0,0,0,0,True,True,True
+2026-02-13,Qatar,Bahrain,Qatar,1,0,0,0,False,False,False
+2026-02-13,United States of America,Netherlands,United States of America,1,0,0,0,False,False,False
+2026-02-13,Zimbabwe,Australia,Zimbabwe,1,0,0,0,False,False,False
+2026-02-14,Ireland,Oman,Ireland,1,1,1,1,True,True,True
+2026-02-14,New Zealand,South Africa,South Africa,0,0,0,0,True,True,True
+2026-02-14,Qatar,Bahrain,Bahrain,0,1,1,1,False,False,False
+2026-02-14,Scotland,England,England,0,0,1,1,True,False,False
+2026-02-15,India,Pakistan,India,1,0,0,0,False,False,False
+2026-02-15,Nepal,West Indies,West Indies,0,0,0,0,True,True,True
+2026-02-15,Qatar,Bahrain,Qatar,1,1,0,0,True,False,False
+2026-02-15,United States of America,Namibia,United States of America,1,1,1,1,True,True,True
+2026-02-16,Australia,Sri Lanka,Sri Lanka,0,1,0,0,False,True,True
+2026-02-16,England,Italy,England,1,1,1,1,True,True,True
+2026-02-17,Canada,New Zealand,New Zealand,0,0,0,0,True,True,True
+2026-02-17,Scotland,Nepal,Nepal,0,1,0,0,False,True,True
+2026-02-18,India,Netherlands,India,1,1,1,1,True,True,True
+2026-02-18,Pakistan,Namibia,Pakistan,1,1,1,1,True,True,True
+2026-02-18,United Arab Emirates,South Africa,South Africa,0,0,0,0,True,True,True
+2026-02-19,Sri Lanka,Zimbabwe,Zimbabwe,0,1,0,0,False,True,True
+2026-02-19,West Indies,Italy,West Indies,1,0,0,0,False,False,False
+2026-02-20,Oman,Australia,Australia,0,0,0,0,True,True,True
+2026-02-22,England,Sri Lanka,England,1,1,1,1,True,True,True
+2026-02-22,South Africa,India,South Africa,1,0,0,0,False,False,False
+2026-02-23,West Indies,Zimbabwe,West Indies,1,1,1,1,True,True,True
+2026-02-24,Pakistan,England,England,0,0,0,0,True,True,True
+2026-02-25,Bhutan,Bahrain,Bahrain,0,0,0,0,True,True,True
+2026-02-25,Japan,Thailand,Japan,1,1,1,1,True,True,True
+2026-02-25,Kuwait,Hong Kong,Hong Kong,0,1,1,1,False,False,False
+2026-02-25,New Zealand,Sri Lanka,New Zealand,1,1,1,1,True,True,True
+2026-02-26,Bahrain,Japan,Japan,0,1,1,1,False,False,False
+2026-02-26,Hong Kong,Kuwait,Hong Kong,1,1,1,1,True,True,True
+2026-02-26,India,Zimbabwe,India,1,1,1,1,True,True,True
+2026-02-26,Thailand,Bhutan,Thailand,1,0,0,0,False,False,False
+2026-02-26,West Indies,South Africa,South Africa,0,0,0,0,True,True,True
+2026-02-27,Bahrain,Thailand,Bahrain,1,1,1,1,True,True,True
+2026-02-27,Japan,Bhutan,Japan,1,1,1,1,True,True,True
+2026-02-27,New Zealand,England,England,0,0,0,0,True,True,True
+2026-02-28,Bhutan,Thailand,Bhutan,1,0,0,0,False,False,False
+2026-02-28,Pakistan,Sri Lanka,Pakistan,1,1,1,1,True,True,True
+2026-03-01,Hong Kong,Kuwait,Kuwait,0,1,1,1,False,False,False
+2026-03-01,West Indies,India,India,0,0,0,0,True,True,True
+2026-03-01,Zimbabwe,South Africa,South Africa,0,0,0,0,True,True,True
+2026-03-04,South Africa,New Zealand,New Zealand,0,1,1,1,False,False,False
+2026-03-05,India,England,India,1,1,1,0,True,True,False
+2026-03-07,Malaysia,Bahrain,Malaysia,1,0,0,0,False,False,False
+2026-03-08,Argentina,Cayman Islands,Cayman Islands,0,0,0,0,True,True,True
+2026-03-08,Bahrain,Malaysia,Bahrain,1,0,0,0,False,False,False
+2026-03-08,India,New Zealand,India,1,1,1,1,True,True,True
+2026-03-08,Mexico,Suriname,Mexico,1,1,1,1,True,True,True
+2026-03-09,Argentina,Suriname,Argentina,1,1,1,1,True,True,True
+2026-03-09,Lesotho,Botswana,Botswana,0,0,0,0,True,True,True
+2026-03-09,Mexico,Cayman Islands,Cayman Islands,0,0,0,0,True,True,True
+2026-03-10,Lesotho,Botswana,Botswana,0,0,0,0,True,True,True
+2026-03-10,Malaysia,Bahrain,Bahrain,0,0,0,0,True,True,True
+2026-03-11,Argentina,Mexico,Argentina,1,1,1,1,True,True,True
+2026-03-11,Suriname,Cayman Islands,Cayman Islands,0,0,0,0,True,True,True
+2026-03-12,Botswana,Lesotho,Botswana,1,1,1,1,True,True,True
+2026-03-12,Cayman Islands,Mexico,Cayman Islands,1,1,1,1,True,True,True
+2026-03-12,Suriname,Argentina,Argentina,0,0,0,0,True,True,True
+2026-03-13,Botswana,Lesotho,Botswana,1,1,1,1,True,True,True
+2026-03-14,Argentina,Mexico,Argentina,1,1,1,1,True,True,True
+2026-03-14,Cyprus,Austria,Cyprus,1,0,0,0,False,False,False
+2026-03-14,Suriname,Cayman Islands,Cayman Islands,0,0,0,0,True,True,True
+2026-03-15,Argentina,Cayman Islands,Cayman Islands,0,0,0,0,True,True,True
+2026-03-15,Botswana,Lesotho,Botswana,1,1,1,1,True,True,True
+2026-03-15,Mexico,Suriname,Suriname,0,1,1,1,False,False,False
+2026-03-15,New Zealand,South Africa,South Africa,0,0,0,0,True,True,True
+2026-03-16,Cyprus,Austria,Austria,0,1,1,1,False,False,False
+2026-03-17,New Zealand,South Africa,New Zealand,1,0,0,0,False,False,False
+2026-03-20,South Africa,New Zealand,New Zealand,0,1,1,1,False,False,False
+2026-03-22,South Africa,New Zealand,South Africa,1,0,0,0,False,False,False
+2026-03-24,Eswatini,St Helena,Eswatini,1,1,1,1,True,True,True
+2026-03-24,Malawi,Tanzania,Tanzania,0,0,0,0,True,True,True
+2026-03-24,Seychelles,Ghana,Ghana,0,0,0,0,True,True,True
+2026-03-25,Malawi,Ghana,Ghana,0,0,0,0,True,True,True
+2026-03-25,South Africa,New Zealand,South Africa,1,1,1,1,True,True,True
+2026-03-25,St Helena,Seychelles,Seychelles,0,0,0,0,True,True,True
+2026-03-25,Tanzania,Eswatini,Tanzania,1,1,1,1,True,True,True
+2026-03-27,Eswatini,Malawi,Malawi,0,1,0,0,False,True,True
+2026-03-27,St Helena,Ghana,Ghana,0,0,0,0,True,True,True
+2026-03-27,Tanzania,Seychelles,Tanzania,1,1,1,1,True,True,True
+2026-03-28,Ghana,Eswatini,Ghana,1,0,1,0,False,True,False
+2026-03-28,Seychelles,Malawi,Malawi,0,0,0,0,True,True,True
+2026-03-28,Tanzania,St Helena,Tanzania,1,1,1,1,True,True,True
+2026-04-02,Mexico,Costa Rica,Mexico,1,1,1,1,True,True,True
+2026-04-03,Costa Rica,Brazil,Brazil,0,0,0,0,True,True,True
+2026-04-03,Mexico,Brazil,Mexico,1,1,1,1,True,True,True
+2026-04-04,Brazil,Costa Rica,Brazil,1,1,1,1,True,True,True
+2026-04-04,Costa Rica,Mexico,Mexico,0,0,0,0,True,True,True
+2026-04-05,France,Portugal,Portugal,0,0,0,0,True,True,True
+2026-04-05,Mexico,Brazil,Brazil,0,1,1,1,False,False,False
+2026-04-05,Norway,France,Norway,1,1,1,1,True,True,True
+2026-04-06,Portugal,France,Portugal,1,1,1,1,True,True,True
+2026-04-06,Portugal,Norway,Portugal,1,1,1,1,True,True,True
+2026-04-07,France,Norway,France,1,0,0,0,False,False,False
+2026-04-07,Indonesia,Sweden,Sweden,0,1,1,1,False,False,False
+2026-04-07,Indonesia,Sweden,Sweden,0,0,0,0,True,True,True
+2026-04-08,Portugal,France,France,0,1,1,1,False,False,False
+2026-04-08,Portugal,Norway,Portugal,1,1,1,1,True,True,True
+2026-04-09,Indonesia,Sweden,Sweden,0,0,0,0,True,True,True
+2026-04-09,Norway,France,France,0,1,0,0,False,True,True
+2026-04-09,Portugal,France,Portugal,1,1,1,1,True,True,True
+2026-04-09,Sweden,Indonesia,Sweden,1,1,1,1,True,True,True
+2026-04-11,Indonesia,Sweden,Sweden,0,0,0,0,True,True,True
+2026-04-11,Sweden,Indonesia,Sweden,1,1,1,1,True,True,True
+2026-04-13,Sweden,Indonesia,Indonesia,0,1,1,1,False,False,False
+2026-04-13,Sweden,Indonesia,Sweden,1,1,1,1,True,True,True
+2026-04-15,Namibia,Scotland,Scotland,0,1,1,1,False,False,False
+2026-04-17,Scotland,Namibia,Scotland,1,1,1,1,True,True,True
+2026-04-18,Scotland,Namibia,Namibia,0,1,1,1,False,False,False
+2026-04-20,Nepal,United Arab Emirates,United Arab Emirates,0,1,1,1,False,False,False
+2026-04-21,United Arab Emirates,Nepal,Nepal,0,1,1,1,False,False,False
+2026-04-27,New Zealand,Bangladesh,Bangladesh,0,1,1,1,False,False,False
+2026-05-01,Austria,Germany,Germany,0,0,0,0,True,True,True
+2026-05-01,Germany,Austria,Germany,1,1,1,1,True,True,True
+2026-05-01,Indonesia,Malaysia,Malaysia,0,0,0,0,True,True,True
+2026-05-02,Bangladesh,New Zealand,New Zealand,0,0,0,0,True,True,True
+2026-05-02,Germany,Austria,Austria,0,1,1,1,False,False,False
+2026-05-02,Isle of Man,Guernsey,Guernsey,0,0,0,0,True,True,True
+2026-05-02,Malaysia,Indonesia,Malaysia,1,1,1,1,True,True,True
+2026-05-03,Austria,Germany,Germany,0,0,0,0,True,True,True
+2026-05-03,Guernsey,Isle of Man,Guernsey,1,1,1,1,True,True,True
+2026-05-04,Malaysia,Indonesia,Malaysia,1,1,1,1,True,True,True
+2026-05-05,Indonesia,Malaysia,Malaysia,0,0,0,0,True,True,True
+2026-05-07,Malta,Gibraltar,Malta,1,1,1,1,True,True,True
+2026-05-07,Malta,Gibraltar,Malta,1,1,1,1,True,True,True
+2026-05-08,Cyprus,Finland,Cyprus,1,0,0,0,False,False,False
+2026-05-08,Cyprus,Finland,Finland,0,0,1,1,True,False,False
+2026-05-08,Gibraltar,Malta,Malta,0,0,0,0,True,True,True
+2026-05-08,Indonesia,Philippines,Indonesia,1,0,0,0,False,False,False
+2026-05-08,Malta,Gibraltar,Malta,1,1,1,1,True,True,True
+2026-05-08,Romania,Bulgaria,Romania,1,1,1,1,True,True,True
+2026-05-08,South Korea,Cook Islands,Cook Islands,0,0,0,0,True,True,True
+2026-05-08,Vanuatu,Fiji,Vanuatu,1,0,0,0,False,False,False
+2026-05-09,Finland,Cyprus,Finland,1,0,0,0,False,False,False
+2026-05-09,Finland,Cyprus,Finland,1,1,1,1,True,True,True
+2026-05-09,Gibraltar,Malta,Malta,0,0,0,0,True,True,True
+2026-05-09,Indonesia,Samoa,Samoa,0,1,1,1,False,False,False
+2026-05-09,Japan,Vanuatu,Japan,1,1,1,1,True,True,True
+2026-05-09,Papua New Guinea,South Korea,Papua New Guinea,1,1,1,1,True,True,True
+2026-05-09,Romania,Bulgaria,Romania,1,1,1,1,True,True,True
+2026-05-09,Romania,Bulgaria,Romania,1,1,1,1,True,True,True
+2026-05-10,Fiji,Japan,Japan,0,0,0,0,True,True,True
+2026-05-10,Papua New Guinea,Cook Islands,Papua New Guinea,1,1,1,1,True,True,True
+2026-05-10,Romania,Bulgaria,Romania,1,1,1,1,True,True,True
+2026-05-10,Samoa,Philippines,Samoa,1,0,0,0,False,False,False
+2026-05-12,Japan,Indonesia,Japan,1,1,1,1,True,True,True
+2026-05-12,Philippines,South Korea,Philippines,1,1,1,1,True,True,True
+2026-05-12,Vanuatu,Samoa,Samoa,0,0,0,0,True,True,True
+2026-05-13,Cook Islands,Vanuatu,Cook Islands,1,1,1,1,True,True,True
+2026-05-13,Fiji,South Korea,South Korea,0,1,1,1,False,False,False
+2026-05-13,Samoa,Papua New Guinea,Papua New Guinea,0,1,1,1,False,False,False
+2026-05-14,Fiji,Philippines,Philippines,0,0,0,0,True,True,True
+2026-05-14,Japan,Cook Islands,Cook Islands,0,1,1,1,False,False,False
+2026-05-14,Papua New Guinea,Indonesia,Papua New Guinea,1,1,1,1,True,True,True
+2026-05-16,Cyprus,France,France,0,0,0,0,True,True,True
+2026-05-16,Guernsey,Sweden,Guernsey,1,0,0,0,False,False,False
+2026-05-16,Malta,Austria,Austria,0,0,0,0,True,True,True
+2026-05-16,Philippines,South Korea,South Korea,0,1,1,1,False,False,False
+2026-05-16,Samoa,Japan,Japan,0,0,0,0,True,True,True
+2026-05-16,Switzerland,Jersey,Jersey,0,0,0,0,True,True,True
+2026-05-16,Vanuatu,Indonesia,Vanuatu,1,0,0,0,False,False,False
+2026-05-17,Cook Islands,Indonesia,Cook Islands,1,1,1,1,True,True,True
+2026-05-17,Fiji,South Korea,South Korea,0,0,0,0,True,True,True
+2026-05-17,France,Croatia,France,1,1,1,1,True,True,True
+2026-05-17,Jersey,Cyprus,Jersey,1,1,1,1,True,True,True
+2026-05-17,Malta,Guernsey,Guernsey,0,0,0,0,True,True,True
+2026-05-17,Papua New Guinea,Vanuatu,Papua New Guinea,1,1,1,1,True,True,True
+2026-05-17,Slovenia,Austria,Austria,0,0,0,0,True,True,True
+2026-05-18,Cook Islands,Samoa,Samoa,0,1,1,1,False,False,False
+2026-05-18,Japan,Papua New Guinea,Japan,1,0,0,0,False,False,False
+2026-05-19,Croatia,Switzerland,Croatia,1,0,0,0,False,False,False
+2026-05-19,France,Jersey,Jersey,0,0,0,0,True,True,True
+2026-05-19,Guernsey,Austria,Guernsey,1,0,0,0,False,False,False
+2026-05-19,Slovenia,Sweden,Sweden,0,0,0,0,True,True,True
+2026-05-20,Jersey,Croatia,Jersey,1,1,1,1,True,True,True
+2026-05-20,Slovenia,Guernsey,Guernsey,0,0,0,0,True,True,True
+2026-05-20,Sweden,Malta,Malta,0,1,1,1,False,False,False
+2026-05-20,Switzerland,Cyprus,Switzerland,1,1,1,1,True,True,True
+2026-05-22,Austria,Sweden,Sweden,0,1,1,1,False,False,False
+2026-05-22,Croatia,Cyprus,Croatia,1,0,0,0,False,False,False
+2026-05-22,France,Switzerland,France,1,0,0,0,False,False,False
+2026-05-22,Slovenia,Malta,Malta,0,0,0,0,True,True,True
+2026-05-23,Botswana,Sierra Leone,Botswana,1,1,1,1,True,True,True
+2026-05-23,Cameroon,Rwanda,Rwanda,0,0,0,0,True,True,True
+2026-05-23,Croatia,Austria,Austria,0,0,0,0,True,True,True
+2026-05-23,France,Sweden,Sweden,0,1,1,1,False,False,False
+2026-05-23,Guernsey,Jersey,Jersey,0,0,0,0,True,True,True
+2026-05-23,Kenya,Mali,Kenya,1,1,1,1,True,True,True
+2026-05-23,Malta,Switzerland,Switzerland,0,0,0,0,True,True,True
+2026-05-24,Mali,Botswana,Botswana,0,0,0,0,True,True,True
+2026-05-24,Rwanda,Ivory Coast,Rwanda,1,1,1,1,True,True,True
+2026-05-24,Sierra Leone,Cameroon,Cameroon,0,1,1,1,False,False,False
+2026-05-25,Botswana,Cameroon,Botswana,1,1,1,1,True,True,True
+2026-05-25,Ivory Coast,Mali,Mali,0,1,1,1,False,False,False
+2026-05-25,Kenya,Rwanda,Rwanda,0,1,1,1,False,False,False
+2026-05-26,Cameroon,Ivory Coast,Cameroon,1,1,1,1,True,True,True
+2026-05-26,Kenya,Sierra Leone,Kenya,1,1,1,1,True,True,True
+2026-05-26,Mali,Rwanda,Rwanda,0,0,0,0,True,True,True
+2026-05-28,Botswana,Ivory Coast,Botswana,1,1,1,1,True,True,True
+2026-05-28,Cameroon,Kenya,Kenya,0,0,0,0,True,True,True
+2026-05-28,Sierra Leone,Rwanda,Rwanda,0,0,0,0,True,True,True
+2026-05-29,Cameroon,Mali,Cameroon,1,1,1,1,True,True,True
+2026-05-29,Ivory Coast,Sierra Leone,Sierra Leone,0,0,0,0,True,True,True
+2026-05-29,Kenya,Botswana,Kenya,1,0,0,0,False,False,False
+2026-05-30,Ivory Coast,Kenya,Kenya,0,0,0,0,True,True,True
+2026-05-30,Mali,Sierra Leone,Sierra Leone,0,0,0,0,True,True,True
+2026-05-30,Rwanda,Botswana,Rwanda,1,1,1,1,True,True,True
+2026-05-31,Nepal,China,Nepal,1,1,1,1,True,True,True
+2026-06-01,Bahrain,Hong Kong,Hong Kong,0,1,1,1,False,False,False
+2026-06-01,Oman,Singapore,Oman,1,1,1,1,True,True,True
+2026-06-02,China,Malaysia,Malaysia,0,0,0,0,True,True,True
+2026-06-02,Mozambique,Lesotho,Mozambique,1,1,1,1,True,True,True
+2026-06-03,Eswatini,Mozambique,Mozambique,0,1,1,1,False,False,False
+2026-06-03,Oman,Bahrain,Oman,1,1,1,1,True,True,True
+2026-06-03,Singapore,Hong Kong,Hong Kong,0,0,0,0,True,True,True
+2026-06-04,Lesotho,Eswatini,Eswatini,0,0,0,0,True,True,True
+2026-06-04,Mozambique,Lesotho,Mozambique,1,1,1,1,True,True,True
+2026-06-04,Nepal,Malaysia,Nepal,1,1,1,1,True,True,True
+2026-06-05,Bahrain,Singapore,Bahrain,1,1,1,1,True,True,True
+2026-06-05,Hong Kong,Oman,Hong Kong,1,0,0,0,False,False,False
+2026-06-06,Mozambique,Eswatini,Eswatini,0,1,1,1,False,False,False
+2026-06-06,Mozambique,Lesotho,Mozambique,1,1,1,1,True,True,True
+2026-06-07,Lesotho,Eswatini,Lesotho,1,0,0,0,False,False,False
+2026-06-07,Malaysia,Hong Kong,Hong Kong,0,0,0,0,True,True,True
+2026-06-07,Mozambique,Eswatini,Eswatini,0,0,0,0,True,True,True
+2026-06-07,Oman,Nepal,Nepal,0,0,0,0,True,True,True
+2026-06-08,Hong Kong,Nepal,Nepal,0,0,0,0,True,True,True
+2026-06-08,Oman,Malaysia,Malaysia,0,1,1,1,False,False,False
+2026-06-11,Austria,Finland,Finland,0,1,1,1,False,False,False
+2026-06-11,Norway,Sweden,Sweden,0,1,1,1,False,False,False
+2026-06-11,Sri Lanka,West Indies,West Indies,0,0,0,0,True,True,True
+2026-06-12,Norway,Austria,Norway,1,0,0,0,False,False,False
+2026-06-12,Sweden,Finland,Finland,0,0,0,0,True,True,True
+2026-06-13,Finland,Norway,Finland,1,1,1,1,True,True,True
+2026-06-13,Sri Lanka,West Indies,Sri Lanka,1,0,0,0,False,False,False
+2026-06-13,Sweden,Austria,Sweden,1,0,0,0,False,False,False
+2026-06-14,Finland,Sweden,Sweden,0,1,1,1,False,False,False
+2026-06-14,Norway,Austria,Austria,0,0,0,0,True,True,True
+2026-06-14,Sri Lanka,West Indies,West Indies,0,0,0,0,True,True,True
+2026-06-17,Bangladesh,Australia,Australia,0,0,0,0,True,True,True
+2026-06-18,Denmark,Germany,Germany,0,0,0,0,True,True,True
+2026-06-18,Nigeria,Hong Kong,Hong Kong,0,0,0,0,True,True,True
+2026-06-19,Australia,Bangladesh,Australia,1,1,1,1,True,True,True
+2026-06-19,Belgium,Romania,Belgium,1,0,0,0,False,False,False
+2026-06-19,Germany,Denmark,Denmark,0,1,1,1,False,False,False
+2026-06-19,Germany,Denmark,Denmark,0,1,1,1,False,False,False
+2026-06-19,Hong Kong,Namibia,Namibia,0,1,1,1,False,False,False
+2026-06-19,Hungary,Switzerland,Switzerland,0,0,0,0,True,True,True
+2026-06-19,Romania,Switzerland,Switzerland,0,0,0,0,True,True,True
+2026-06-20,Belgium,Hungary,Belgium,1,1,1,1,True,True,True
+2026-06-20,Belgium,Switzerland,Belgium,1,1,1,1,True,True,True
+2026-06-20,Germany,Denmark,Denmark,0,1,1,1,False,False,False
+2026-06-20,Hungary,Romania,Romania,0,0,0,0,True,True,True
+2026-06-20,Namibia,Nigeria,Namibia,1,1,1,1,True,True,True
+2026-06-21,Bangladesh,Australia,Australia,0,0,0,0,True,True,True
+2026-06-21,Belgium,Hungary,Belgium,1,1,1,1,True,True,True
+2026-06-21,Belgium,Romania,Belgium,1,1,1,1,True,True,True
+2026-06-21,Nigeria,Hong Kong,Hong Kong,0,0,0,0,True,True,True
+2026-06-21,Romania,Switzerland,Romania,1,0,0,0,False,False,False
+2026-06-22,Belize,Bermuda,Bermuda,0,0,0,0,True,True,True
+2026-06-22,Namibia,Hong Kong,Namibia,1,1,1,1,True,True,True
+2026-06-22,Panama,Brazil,Panama,1,0,0,0,False,False,False
+2026-06-22,Singapore,Uzbekistan,Singapore,1,0,0,0,False,False,False
+2026-06-23,Indonesia,Uzbekistan,Indonesia,1,1,1,1,True,True,True
+2026-06-23,Namibia,Nigeria,Namibia,1,1,1,1,True,True,True
+2026-06-23,Singapore,Thailand,Singapore,1,1,1,1,True,True,True
+2026-06-24,Bahamas,Panama,Panama,0,0,0,0,True,True,True
+2026-06-24,Brazil,Belize,Belize,0,0,0,0,True,True,True
+2026-06-25,Brazil,Bahamas,Bahamas,0,0,0,0,True,True,True
+2026-06-25,Panama,Bermuda,Bermuda,0,0,0,0,True,True,True
+2026-06-25,Singapore,Indonesia,Singapore,1,1,1,1,True,True,True
+2026-06-25,Uzbekistan,Thailand,Thailand,0,0,0,0,True,True,True
+2026-06-26,Czech Republic,Luxembourg,Luxembourg,0,1,1,1,False,False,False
+2026-06-26,Indonesia,Uzbekistan,Indonesia,1,1,1,1,True,True,True
+2026-06-26,Ireland,India,Ireland,1,0,0,0,False,False,False
+2026-06-26,Serbia,Luxembourg,Luxembourg,0,1,0,0,False,True,True
+2026-06-26,Thailand,Singapore,Singapore,0,0,0,0,True,True,True
+2026-06-27,Bahamas,Belize,Bahamas,1,1,1,1,True,True,True
+2026-06-27,Bermuda,Brazil,Bermuda,1,1,1,1,True,True,True
+2026-06-27,Hungary,Austria,Austria,0,0,0,0,True,True,True
+2026-06-27,Serbia,Luxembourg,Luxembourg,0,0,0,0,True,True,True
+2026-06-28,Austria,Hungary,Austria,1,1,1,1,True,True,True
+2026-06-28,Czech Republic,Luxembourg,Czech Republic,1,0,0,0,False,False,False
+2026-06-28,Hungary,Austria,Austria,0,0,0,0,True,True,True
+2026-06-28,Ireland,India,Ireland,1,0,0,0,False,False,False
+2026-07-01,Portugal,Sweden,Portugal,1,1,1,1,True,True,True
+2026-07-01,Sweden,Portugal,Portugal,0,0,0,0,True,True,True
+2026-07-03,Portugal,Finland,Portugal,1,0,0,0,False,False,False
+2026-07-04,India,England,England,0,0,0,0,True,True,True
+2026-07-04,Portugal,Finland,Portugal,1,1,1,1,True,True,True
+2026-07-07,England,India,England,1,1,1,0,True,True,False
+2026-07-08,Denmark,Estonia,Denmark,1,1,1,1,True,True,True
+2026-07-08,Gibraltar,Belgium,Belgium,0,0,0,0,True,True,True
+2026-07-08,Serbia,Romania,Romania,0,0,0,0,True,True,True
+2026-07-09,Denmark,Turkey,Denmark,1,1,1,1,True,True,True
+2026-07-09,Estonia,Norway,Norway,0,0,0,0,True,True,True
+2026-07-09,India,England,England,0,0,0,0,True,True,True
+2026-07-10,Belgium,Serbia,Belgium,1,1,1,1,True,True,True
+2026-07-10,Gibraltar,Romania,Romania,0,0,0,0,True,True,True
+2026-07-10,Hungary,Estonia,Hungary,1,1,1,1,True,True,True
+2026-07-10,Turkey,Norway,Norway,0,0,0,0,True,True,True
+2026-07-11,England,India,England,1,1,1,0,True,True,False
+2026-07-12,Belgium,Romania,Romania,0,1,1,1,False,False,False
+2026-07-12,Denmark,Norway,Denmark,1,1,1,1,True,True,True
+2026-07-12,Hungary,Turkey,Hungary,1,1,1,1,True,True,True
+2026-07-12,Serbia,Gibraltar,Gibraltar,0,0,0,0,True,True,True
+2026-07-13,Denmark,Hungary,Denmark,1,1,1,0,True,True,False
+2026-07-13,Turkey,Estonia,Estonia,0,0,0,0,True,True,True
+2026-07-14,Denmark,Romania,Denmark,1,0,0,0,False,False,False
+2026-07-14,Hungary,Belgium,Belgium,0,0,0,0,True,True,True
+2026-07-14,Norway,Gibraltar,Norway,1,1,1,1,True,True,True
+2026-07-14,Serbia,Estonia,Estonia,0,0,0,0,True,True,True
+2026-07-15,Zimbabwe,Bangladesh,Zimbabwe,1,1,0,0,True,False,False
+2026-07-17,Bangladesh,Zimbabwe,Bangladesh,1,0,0,0,False,False,False
+2026-07-19,Zimbabwe,Bangladesh,Bangladesh,0,1,0,0,False,True,True
+2026-07-23,Zimbabwe,India,India,0,0,0,0,True,True,True
+2026-07-25,Austria,Turkey,Austria,1,1,1,1,True,True,True
+2026-07-25,France,Romania,Romania,0,0,0,0,True,True,True
+2026-07-25,India,Zimbabwe,India,1,1,1,1,True,True,True
+2026-07-26,India,Zimbabwe,India,1,1,1,1,True,True,True
+2026-07-26,Romania,Austria,Austria,0,0,0,0,True,True,True
+2026-07-26,Turkey,Romania,Romania,0,0,0,0,True,True,True
+2026-07-27,France,Turkey,France,1,1,1,1,True,True,True
+2026-07-27,Israel,Romania,Romania,0,0,0,0,True,True,True
+2026-07-28,France,Austria,France,1,0,0,0,False,False,False
+2026-07-28,Israel,Austria,Austria,0,0,0,0,True,True,True
+2026-07-28,Turkey,Israel,Turkey,1,0,0,0,False,False,False
+2026-07-29,Israel,France,France,0,0,0,0,True,True,True
+2026-07-29,Turkey,France,France,0,0,0,0,True,True,True
+2026-07-30,Austria,Romania,Romania,0,1,1,1,False,False,False
+2026-07-30,France,Romania,France,1,0,0,0,False,False,False
+2026-07-31,Bahrain,Kenya,Bahrain,1,0,0,0,False,False,False
+2026-08-01,Bahrain,Kenya,Kenya,0,1,1,1,False,False,False
+2026-08-06,Mexico,Panama,Panama,0,0,0,0,True,True,True
+2026-08-07,Panama,Brazil,Brazil,0,1,1,1,False,False,False
+2026-08-08,Brazil,Mexico,Brazil,1,1,0,0,True,False,False
+2026-08-08,Mexico,Peru,Mexico,1,1,0,0,True,False,False
+2026-08-08,Peru,Panama,Panama,0,0,0,0,True,True,True
+2026-08-09,Brazil,Panama,Brazil,1,1,1,1,True,True,True
+2026-08-11,Germany,Finland,Germany,1,1,1,1,True,True,True
+2026-08-11,Malawi,Zambia,Malawi,1,0,0,0,False,False,False
+2026-08-11,Zambia,Rwanda,Rwanda,0,0,0,0,True,True,True
+2026-08-12,Malawi,Rwanda,Rwanda,0,0,0,0,True,True,True
+2026-08-12,Zambia,Rwanda,Zambia,1,0,0,0,False,False,False
+2026-08-14,Finland,Spain,Spain,0,0,0,0,True,True,True
+2026-08-14,Germany,Czech Republic,Germany,1,0,0,0,False,False,False
+2026-08-14,Luxembourg,Isle of Man,Isle of Man,0,0,0,0,True,True,True
+2026-08-14,Malawi,Rwanda,Malawi,1,0,0,0,False,False,False
+2026-08-14,Portugal,Israel,Portugal,1,1,0,0,True,False,False
+2026-08-15,Finland,Bulgaria,Finland,1,1,1,1,True,True,True
+2026-08-15,Germany,Portugal,Portugal,0,0,0,0,True,True,True
+2026-08-15,Greece,Czech Republic,Czech Republic,0,0,0,0,True,True,True
+2026-08-15,Isle of Man,Spain,Spain,0,0,0,0,True,True,True
+2026-08-15,Rwanda,Zambia,Zambia,0,1,0,0,False,True,True
+2026-08-15,Zambia,Malawi,Zambia,1,0,0,0,False,False,False
+2026-08-16,Malawi,Rwanda,Rwanda,0,0,0,0,True,True,True
+2026-08-17,Greece,Portugal,Portugal,0,0,0,0,True,True,True
+2026-08-17,Isle of Man,Bulgaria,Isle of Man,1,1,1,1,True,True,True
+2026-08-17,Israel,Germany,Germany,0,0,0,0,True,True,True
+2026-08-17,Spain,Luxembourg,Spain,1,1,1,1,True,True,True
+2026-08-18,Bulgaria,Spain,Spain,0,0,0,0,True,True,True
+2026-08-18,Czech Republic,Israel,Israel,0,1,1,1,False,False,False
+2026-08-18,Finland,Luxembourg,Finland,1,1,1,1,True,True,True
+2026-08-18,Greece,Germany,Germany,0,0,0,0,True,True,True
+2026-08-20,Bulgaria,Luxembourg,Bulgaria,1,0,0,0,False,False,False
+2026-08-20,Israel,Greece,Israel,1,1,1,1,True,True,True
+2026-08-20,Portugal,Czech Republic,Portugal,1,1,1,1,True,True,True
+2026-08-21,Bulgaria,Czech Republic,Czech Republic,0,0,0,0,True,True,True
+2026-08-21,Germany,Finland,Germany,1,1,1,1,True,True,True
+2026-08-21,Israel,Isle of Man,Isle of Man,0,0,0,0,True,True,True
+2026-08-21,Portugal,Spain,Portugal,1,0,0,0,False,False,False
+2026-08-28,Namibia,South Africa,Namibia,1,1,1,1,True,True,True
+2026-08-29,Zimbabwe,South Africa,South Africa,0,0,0,0,True,True,True
+2026-08-31,Zimbabwe,Namibia,Zimbabwe,1,0,0,0,False,False,False
+2026-09-01,South Africa,Zimbabwe,South Africa,1,1,1,1,True,True,True
+2026-09-03,Namibia,Zimbabwe,Zimbabwe,0,1,1,1,False,False,False
+2026-09-04,South Africa,Namibia,South Africa,1,0,0,0,False,False,False
+2026-09-06,South Africa,Zimbabwe,South Africa,1,1,1,1,True,True,True
+2026-09-08,Kenya,Sierra Leone,Kenya,1,1,1,1,True,True,True
+2026-09-08,Rwanda,Botswana,Rwanda,1,1,1,1,True,True,True
+2026-09-09,Rwanda,Kenya,Kenya,0,0,0,0,True,True,True
+2026-09-09,Uganda,Sierra Leone,Uganda,1,1,1,1,True,True,True

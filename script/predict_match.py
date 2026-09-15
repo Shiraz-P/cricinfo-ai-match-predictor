@@ -1,28 +1,55 @@
-from difflib import get_close_matches
-from datetime import datetime
-
-import os
 import pandas as pd
 import joblib
+from pathlib import Path
+from datetime import datetime
+from difflib import get_close_matches
 
 
-# -------------------------------------------------
-# Load feature-engineered dataset
-# -------------------------------------------------
+# ============================================================
+# PROJECT PATHS
+# ============================================================
 
-file_path = r"K:\Python\Cricinfo_AI_Project\data\matches_features.csv"
+ROOT = Path(r"K:\Python\Cricinfo_AI_Project")
 
-df = pd.read_csv(file_path)
+DATA_DIR = ROOT / "data"
+MODEL_DIR = ROOT / "model"
 
-df["date"] = pd.to_datetime(df["date"])
-df = df.sort_values("date").reset_index(drop=True)
+CHAMPION_MODEL_FILE = (
+    MODEL_DIR
+    / "cricket_model.pkl"
+)
+
+CANDIDATE_MODEL_FILE = (
+    MODEL_DIR
+    / "cricket_model_ablation_9feature.pkl"
+)
+
+CHAMPION_FEATURE_FILE = (
+    DATA_DIR
+    / "matches_features.csv"
+)
+
+CANDIDATE_FEATURE_FILE = (
+    DATA_DIR
+    / "matches_candidate_features.csv"
+)
+
+PRODUCTION_LOG_FILE = (
+    DATA_DIR
+    / "prediction_log.csv"
+)
+
+SHADOW_LOG_FILE = (
+    DATA_DIR
+    / "shadow_v12_log.csv"
+)
 
 
-# -------------------------------------------------
-# Predictor Feature Schema
-# -------------------------------------------------
+# ============================================================
+# MODEL FEATURES
+# ============================================================
 
-features = [
+FEATURES = [
     "toss_winner_is_team1",
     "team1_historical_win_rate",
     "team2_historical_win_rate",
@@ -35,695 +62,1269 @@ features = [
 ]
 
 
-# -------------------------------------------------
-# Load Pre-Trained Model Package
-# -------------------------------------------------
+# ============================================================
+# TEAM ALIASES
+# ============================================================
 
-model_path = r"K:\Python\Cricinfo_AI_Project\model\cricket_model.pkl"
+TEAM_ALIASES = {
 
-model_package = joblib.load(model_path)
+    "afg": "Afghanistan",
+    "afgh": "Afghanistan",
 
-model = model_package["model"]
-saved_features = model_package["features"]
+    "ind": "India",
 
-print("\n--- MODEL INFORMATION ---")
+    "pak": "Pakistan",
 
-print("Trained model package loaded successfully.")
-print("Model version:", model_package["model_version"])
-print("Model type:", model_package["model_type"])
-print("Saved test accuracy:", model_package["test_accuracy"], "%")
-print("Saved feature count:", model_package["feature_count"])
+    "aus": "Australia",
+
+    "eng": "England",
+
+    "nz": "New Zealand",
+
+    "sa": "South Africa",
+    "rsa": "South Africa",
+
+    "sl": "Sri Lanka",
+
+    "wi": "West Indies",
+
+    "ban": "Bangladesh",
+    "bd": "Bangladesh",
+
+    "uae": "United Arab Emirates"
+}
 
 
-# -------------------------------------------------
-# Verify Feature Schema
-# -------------------------------------------------
+# ============================================================
+# LOAD MODEL HELPER
+# ============================================================
 
-if features != saved_features:
+def load_model_package(path):
 
-    print("\nERROR: Feature schema mismatch.")
+    package = joblib.load(path)
 
-    print("Predictor features:")
-    print(features)
+    if isinstance(package, dict):
 
-    print("\nSaved model features:")
-    print(saved_features)
+        if "model" in package:
 
-    raise ValueError(
-        "Prediction stopped because predictor features "
-        "do not match saved model features."
-    )
+            return package["model"]
 
-print(
-    "Feature schema verified:",
-    len(saved_features),
-    "features"
+    return package
+
+
+# ============================================================
+# LOAD MODELS
+# ============================================================
+
+champion_model = load_model_package(
+    CHAMPION_MODEL_FILE
+)
+
+candidate_model = load_model_package(
+    CANDIDATE_MODEL_FILE
 )
 
 
-# -------------------------------------------------
-# Build official team list
-# -------------------------------------------------
+# ============================================================
+# LOAD HISTORICAL DATA
+# ============================================================
 
-all_teams = sorted(
-    set(df["team1"]).union(
-        set(df["team2"])
+champion_history = pd.read_csv(
+    CHAMPION_FEATURE_FILE
+)
+
+candidate_history = pd.read_csv(
+    CANDIDATE_FEATURE_FILE
+)
+
+
+for df in [
+    champion_history,
+    candidate_history
+]:
+
+    df["date"] = pd.to_datetime(
+        df["date"],
+        errors="coerce"
+    )
+
+    df.sort_values(
+        "date",
+        inplace=True,
+        kind="stable"
+    )
+
+    df.reset_index(
+        drop=True,
+        inplace=True
+    )
+
+
+# ============================================================
+# BUILD TEAM LISTS
+# ============================================================
+
+champion_teams = sorted(
+
+    set(
+        champion_history[
+            "team1"
+        ]
+        .dropna()
+        .astype(str)
+    )
+
+    |
+
+    set(
+        champion_history[
+            "team2"
+        ]
+        .dropna()
+        .astype(str)
     )
 )
 
 
-# -------------------------------------------------
-# Function: normalize team name
-# -------------------------------------------------
+candidate_teams = sorted(
 
-def normalize_team(user_input):
-
-    normalized_input = (
-        user_input
-        .strip()
-        .lower()
-        .replace(" ", "")
+    set(
+        candidate_history[
+            "team1"
+        ]
+        .dropna()
+        .astype(str)
     )
 
-    # First try exact normalized match
-    for team in all_teams:
+    |
 
-        normalized_team = (
-            team
-            .lower()
-            .replace(" ", "")
+    set(
+        candidate_history[
+            "team2"
+        ]
+        .dropna()
+        .astype(str)
+    )
+)
+
+
+candidate_team_lookup = {
+
+    team.lower(): team
+
+    for team in candidate_teams
+}
+
+
+# ============================================================
+# NORMALIZE TEAM
+# ============================================================
+
+def normalize_team(value):
+
+    value = value.strip()
+
+    if not value:
+
+        raise ValueError(
+            "Team name cannot be blank."
         )
 
-        if normalized_team == normalized_input:
-            return team
 
-    # Fuzzy matching for possible typo
-    normalized_team_map = {
-        team.lower().replace(" ", ""): team
-        for team in all_teams
-    }
+    lower = value.lower()
 
-    possible_matches = get_close_matches(
-        normalized_input,
-        normalized_team_map.keys(),
-        n=1,
-        cutoff=0.75
-    )
 
-    if len(possible_matches) == 1:
+    # --------------------------------------------------------
+    # Exact match
+    # --------------------------------------------------------
 
-        suggested_team = normalized_team_map[
-            possible_matches[0]
+    if lower in candidate_team_lookup:
+
+        return candidate_team_lookup[
+            lower
         ]
 
-        answer = input(
-            f"Team not found. Did you mean "
-            f"{suggested_team}? (y/n): "
-        ).strip().lower()
 
-        if answer == "y":
-            return suggested_team
+    # --------------------------------------------------------
+    # Alias match
+    # --------------------------------------------------------
 
-    return None
+    if lower in TEAM_ALIASES:
 
+        canonical = TEAM_ALIASES[
+            lower
+        ]
 
-# -------------------------------------------------
-# Generic text normalization
-# Used mainly for venue matching
-# -------------------------------------------------
+        if canonical in candidate_teams:
 
-def normalize_text(value):
+            print(
+                f"Normalized team: "
+                f"{value} -> {canonical}"
+            )
 
-    return (
-        value
-        .strip()
-        .lower()
-        .replace(" ", "")
-        .replace("'", "")
-        .replace("-", "")
-        .replace(".", "")
-        .replace(",", "")
-    )
+            return canonical
 
 
-# -------------------------------------------------
-# Function: resolve venue
-# Exact -> Partial -> Fuzzy
-# -------------------------------------------------
+    # --------------------------------------------------------
+    # Partial match
+    # --------------------------------------------------------
 
-def resolve_venue(user_input):
+    partial_matches = [
 
-    normalized_input = normalize_text(
-        user_input
-    )
+        team
 
-    all_venues = sorted(
-        df["venue"].dropna().unique()
-    )
+        for team in candidate_teams
 
-    # -------------------------------------------------
-    # 1. Exact normalized match
-    # Example:
-    # lords -> Lord's
-    # -------------------------------------------------
-
-    for venue in all_venues:
-
-        if normalize_text(venue) == normalized_input:
-            return venue
-
-
-    # -------------------------------------------------
-    # 2. Partial normalized match
-    # Example:
-    # sydney -> Sydney Cricket Ground
-    # -------------------------------------------------
-
-    matches = [
-        venue
-        for venue in all_venues
-        if normalized_input in normalize_text(venue)
+        if lower in team.lower()
     ]
 
 
-    if len(matches) == 1:
+    if len(partial_matches) == 1:
 
-        return matches[0]
-
-
-    elif len(matches) > 1:
+        resolved = partial_matches[0]
 
         print(
-            "\nMultiple venues matched your input:"
+            f"Resolved team: "
+            f"{value} -> {resolved}"
         )
 
-        for number, venue in enumerate(
-            matches,
-            start=1
-        ):
-
-            print(
-                number,
-                "-",
-                venue
-            )
-
-        while True:
-
-            choice = input(
-                "Select venue number: "
-            ).strip()
-
-            if choice.isdigit():
-
-                choice_number = int(choice)
-
-                if (
-                    1
-                    <= choice_number
-                    <= len(matches)
-                ):
-
-                    return matches[
-                        choice_number - 1
-                    ]
-
-            print(
-                "Invalid choice. Please enter "
-                "one of the venue numbers shown."
-            )
+        return resolved
 
 
-    # -------------------------------------------------
-    # 3. Fuzzy venue matching
-    # Example:
-    # lrod -> Lord's
-    # -------------------------------------------------
+    # --------------------------------------------------------
+    # Fuzzy suggestions
+    # --------------------------------------------------------
 
-    normalized_venue_map = {
-        normalize_text(venue): venue
-        for venue in all_venues
-    }
-
-    possible_matches = get_close_matches(
-        normalized_input,
-        normalized_venue_map.keys(),
-        n=3,
-        cutoff=0.70
+    suggestions = get_close_matches(
+        value,
+        candidate_teams,
+        n=5,
+        cutoff=0.4
     )
 
-
-    if len(possible_matches) == 1:
-
-        suggested_venue = normalized_venue_map[
-            possible_matches[0]
-        ]
-
-        answer = input(
-            f"Venue not found. Did you mean "
-            f"{suggested_venue}? (y/n): "
-        ).strip().lower()
-
-        if answer == "y":
-            return suggested_venue
-
-
-    elif len(possible_matches) > 1:
-
-        print(
-            "\nPossible venue matches:"
-        )
-
-        suggested_venues = [
-            normalized_venue_map[item]
-            for item in possible_matches
-        ]
-
-        for number, venue in enumerate(
-            suggested_venues,
-            start=1
-        ):
-
-            print(
-                number,
-                "-",
-                venue
-            )
-
-        while True:
-
-            choice = input(
-                "Select venue number "
-                "or 0 to try again: "
-            ).strip()
-
-            if choice == "0":
-                return None
-
-            if choice.isdigit():
-
-                choice_number = int(choice)
-
-                if (
-                    1
-                    <= choice_number
-                    <= len(suggested_venues)
-                ):
-
-                    return suggested_venues[
-                        choice_number - 1
-                    ]
-
-            print(
-                "Invalid choice."
-            )
-
-
-    return None
-
-
-# -------------------------------------------------
-# Function: overall historical win rate
-# -------------------------------------------------
-
-def historical_win_rate(team):
-
-    team_matches = df[
-        (df["team1"] == team)
-        |
-        (df["team2"] == team)
-    ]
-
-    if len(team_matches) == 0:
-        return 0.5
-
-    wins = len(
-        team_matches[
-            team_matches["winner"] == team
-        ]
-    )
-
-    return wins / len(team_matches)
-
-
-# -------------------------------------------------
-# Function: recent form - last 5 matches
-# -------------------------------------------------
-
-def recent_win_rate(team):
-
-    team_matches = df[
-        (df["team1"] == team)
-        |
-        (df["team2"] == team)
-    ].sort_values(
-        "date"
-    )
-
-    last_five = team_matches.tail(5)
-
-    if len(last_five) == 0:
-        return 0.5
-
-    wins = len(
-        last_five[
-            last_five["winner"] == team
-        ]
-    )
-
-    return wins / len(last_five)
-
-
-# -------------------------------------------------
-# Function: head-to-head win rates
-# -------------------------------------------------
-
-def head_to_head(team1, team2):
-
-    h2h_matches = df[
-        (
-            (df["team1"] == team1)
-            &
-            (df["team2"] == team2)
-        )
-        |
-        (
-            (df["team1"] == team2)
-            &
-            (df["team2"] == team1)
-        )
-    ]
-
-    if len(h2h_matches) == 0:
-        return 0.5, 0.5
-
-    team1_wins = len(
-        h2h_matches[
-            h2h_matches["winner"] == team1
-        ]
-    )
-
-    team2_wins = len(
-        h2h_matches[
-            h2h_matches["winner"] == team2
-        ]
-    )
-
-    total = len(
-        h2h_matches
-    )
-
-    return (
-        team1_wins / total,
-        team2_wins / total
-    )
-
-
-# -------------------------------------------------
-# Function: venue win rate
-# -------------------------------------------------
-
-def venue_win_rate(team, venue):
-
-    venue_matches = df[
-        (
-            (df["team1"] == team)
-            |
-            (df["team2"] == team)
-        )
-        &
-        (df["venue"] == venue)
-    ]
-
-    if len(venue_matches) == 0:
-        return 0.5
-
-    wins = len(
-        venue_matches[
-            venue_matches["winner"] == team
-        ]
-    )
-
-    return wins / len(venue_matches)
-
-
-# -------------------------------------------------
-# User Input
-# -------------------------------------------------
-
-print(
-    "\n--- CRICKET MATCH PREDICTOR ---"
-)
-
-
-# -------------------------------------------------
-# Team 1 Input Validation
-# -------------------------------------------------
-
-while True:
-
-    team1_input = input(
-        "Enter Team 1: "
-    )
-
-    team1 = normalize_team(
-        team1_input
-    )
-
-    if team1 is not None:
-        break
 
     print(
-        "Team not found in dataset. "
-        "Please enter a valid team."
+        f"\nERROR: Team '{value}' "
+        "was not found."
     )
 
 
-# -------------------------------------------------
-# Team 2 Input Validation
-# -------------------------------------------------
+    if suggestions:
 
-while True:
+        print(
+            "\nDid you mean:"
+        )
 
-    team2_input = input(
-        "Enter Team 2: "
+        for team in suggestions:
+
+            print(
+                " -",
+                team
+            )
+
+
+    raise ValueError(
+        "Unknown team."
+    )
+
+
+# ============================================================
+# SELECT MODEL AUTOMATICALLY
+# ============================================================
+
+def select_model(
+    team1,
+    team2
+):
+
+    # --------------------------------------------------------
+    # Both teams supported by Champion
+    # --------------------------------------------------------
+
+    if (
+        team1 in champion_teams
+        and
+        team2 in champion_teams
+    ):
+
+        return (
+            champion_model,
+            champion_history,
+            "Champion v1.0",
+            "PRODUCTION"
+        )
+
+
+    # --------------------------------------------------------
+    # Otherwise try expanded Candidate
+    # --------------------------------------------------------
+
+    if (
+        team1 in candidate_teams
+        and
+        team2 in candidate_teams
+    ):
+
+        return (
+            candidate_model,
+            candidate_history,
+            "Candidate v1.2",
+            "SHADOW"
+        )
+
+
+    raise ValueError(
+        "This team combination is not "
+        "supported by the available models."
+    )
+
+
+# ============================================================
+# NORMALIZE VENUE
+# ============================================================
+
+def normalize_venue(
+    value,
+    history
+):
+
+    value = value.strip()
+
+    if not value:
+
+        raise ValueError(
+            "Venue cannot be blank."
+        )
+
+
+    # --------------------------------------------------------
+    # Explicit unseen venue
+    # --------------------------------------------------------
+
+    if value.upper() == "NEW":
+
+        print(
+            "Using NEW/UNSEEN venue."
+        )
+
+        print(
+            "Neutral venue features "
+            "will be used."
+        )
+
+        return "NEW"
+
+
+    # --------------------------------------------------------
+    # Known venues from selected model history
+    # --------------------------------------------------------
+
+    known_venues = sorted(
+
+        history[
+            "venue"
+        ]
+        .dropna()
+        .astype(str)
+        .unique()
+    )
+
+
+    venue_lookup = {
+
+        venue.lower(): venue
+
+        for venue in known_venues
+    }
+
+
+    lower = value.lower()
+
+
+    # --------------------------------------------------------
+    # 1. Exact match
+    # --------------------------------------------------------
+
+    if lower in venue_lookup:
+
+        return venue_lookup[
+            lower
+        ]
+
+
+    # --------------------------------------------------------
+    # 2. Partial / city match
+    #
+    # Examples:
+    #
+    # Mumbai
+    #   -> Wankhede Stadium, Mumbai
+    #
+    # Dubai
+    #   -> most frequently observed Dubai venue
+    # --------------------------------------------------------
+
+    partial_matches = [
+
+        venue
+
+        for venue in known_venues
+
+        if lower in venue.lower()
+    ]
+
+
+    # --------------------------------------------------------
+    # One matching venue
+    # --------------------------------------------------------
+
+    if len(partial_matches) == 1:
+
+        resolved = partial_matches[0]
+
+        print(
+            f"Resolved venue: "
+            f"{value} -> {resolved}"
+        )
+
+        return resolved
+
+
+    # --------------------------------------------------------
+    # Multiple venues for same city/input
+    #
+    # Automatically select most frequently observed
+    # historical venue.
+    # --------------------------------------------------------
+
+    if len(partial_matches) > 1:
+
+        venue_counts = (
+
+            history[
+                history["venue"]
+                .isin(partial_matches)
+            ]["venue"]
+            .value_counts()
+        )
+
+
+        resolved = venue_counts.index[0]
+
+
+        print(
+            f"Resolved city: "
+            f"{value} -> {resolved}"
+        )
+
+
+        print(
+            "Reason: most frequently observed "
+            "historical venue for this input."
+        )
+
+
+        print(
+            "Other matching venues:"
+        )
+
+
+        for venue in partial_matches:
+
+            if venue != resolved:
+
+                print(
+                    " -",
+                    venue
+                )
+
+
+        return resolved
+
+
+    # --------------------------------------------------------
+    # 3. Fuzzy matching
+    # --------------------------------------------------------
+
+    suggestions = get_close_matches(
+        value,
+        known_venues,
+        n=5,
+        cutoff=0.35
+    )
+
+
+    # --------------------------------------------------------
+    # Exactly one fuzzy suggestion
+    # --------------------------------------------------------
+
+    if len(suggestions) == 1:
+
+        resolved = suggestions[0]
+
+        print(
+            f"Resolved venue: "
+            f"{value} -> {resolved}"
+        )
+
+        return resolved
+
+
+    # --------------------------------------------------------
+    # Unknown venue
+    # --------------------------------------------------------
+
+    print(
+        f"\nERROR: Venue '{value}' "
+        "was not found."
+    )
+
+
+    if suggestions:
+
+        print(
+            "\nClosest known venues:"
+        )
+
+        for venue in suggestions:
+
+            print(
+                " -",
+                venue
+            )
+
+
+    print(
+        "\nIf this is genuinely a new venue, "
+        "enter NEW."
+    )
+
+
+    raise ValueError(
+        "Unknown venue."
+    )
+
+
+# ============================================================
+# NORMALIZE TOSS WINNER
+# ============================================================
+
+def normalize_toss(
+    value,
+    team1,
+    team2
+):
+
+    value = value.strip()
+
+
+    # --------------------------------------------------------
+    # Unknown toss allowed
+    # --------------------------------------------------------
+
+    if not value:
+
+        return None
+
+
+    lower = value.lower()
+
+
+    # --------------------------------------------------------
+    # Exact Team 1
+    # --------------------------------------------------------
+
+    if lower == team1.lower():
+
+        return team1
+
+
+    # --------------------------------------------------------
+    # Exact Team 2
+    # --------------------------------------------------------
+
+    if lower == team2.lower():
+
+        return team2
+
+
+    # --------------------------------------------------------
+    # Alias
+    # --------------------------------------------------------
+
+    if lower in TEAM_ALIASES:
+
+        normalized = TEAM_ALIASES[
+            lower
+        ]
+
+
+        if normalized == team1:
+
+            print(
+                f"Normalized toss winner: "
+                f"{value} -> {team1}"
+            )
+
+            return team1
+
+
+        if normalized == team2:
+
+            print(
+                f"Normalized toss winner: "
+                f"{value} -> {team2}"
+            )
+
+            return team2
+
+
+    # --------------------------------------------------------
+    # Partial team name
+    # --------------------------------------------------------
+
+    possible_teams = [
+        team1,
+        team2
+    ]
+
+
+    partial_matches = [
+
+        team
+
+        for team in possible_teams
+
+        if lower in team.lower()
+    ]
+
+
+    if len(partial_matches) == 1:
+
+        resolved = partial_matches[0]
+
+        print(
+            f"Resolved toss winner: "
+            f"{value} -> {resolved}"
+        )
+
+        return resolved
+
+
+    raise ValueError(
+        "Toss winner must match "
+        "Team 1 or Team 2, "
+        "or be left blank."
+    )
+
+
+# ============================================================
+# HISTORICAL FEATURE HELPERS
+# ============================================================
+
+def team_matches(
+    history,
+    team
+):
+
+    return history[
+
+        (
+            history["team1"]
+            ==
+            team
+        )
+
+        |
+
+        (
+            history["team2"]
+            ==
+            team
+        )
+    ]
+
+
+# ============================================================
+# HISTORICAL WIN RATE
+# ============================================================
+
+def historical_win_rate(
+    history,
+    team
+):
+
+    matches = team_matches(
+        history,
+        team
+    )
+
+
+    if len(matches) == 0:
+
+        return 0.5
+
+
+    wins = (
+        matches["winner"]
+        ==
+        team
+    ).sum()
+
+
+    return (
+        wins
+        /
+        len(matches)
+    )
+
+
+# ============================================================
+# RECENT WIN RATE
+# ============================================================
+
+def recent_win_rate(
+    history,
+    team,
+    number=5
+):
+
+    matches = (
+        team_matches(
+            history,
+            team
+        )
+        .tail(number)
+    )
+
+
+    if len(matches) == 0:
+
+        return 0.5
+
+
+    wins = (
+        matches["winner"]
+        ==
+        team
+    ).sum()
+
+
+    return (
+        wins
+        /
+        len(matches)
+    )
+
+
+# ============================================================
+# HEAD-TO-HEAD WIN RATE
+# ============================================================
+
+def h2h_win_rate(
+    history,
+    team_a,
+    team_b
+):
+
+    matches = history[
+
+        (
+            (
+                history["team1"]
+                ==
+                team_a
+            )
+
+            &
+
+            (
+                history["team2"]
+                ==
+                team_b
+            )
+        )
+
+        |
+
+        (
+            (
+                history["team1"]
+                ==
+                team_b
+            )
+
+            &
+
+            (
+                history["team2"]
+                ==
+                team_a
+            )
+        )
+    ]
+
+
+    if len(matches) == 0:
+
+        return 0.5
+
+
+    wins = (
+        matches["winner"]
+        ==
+        team_a
+    ).sum()
+
+
+    return (
+        wins
+        /
+        len(matches)
+    )
+
+
+# ============================================================
+# VENUE WIN RATE
+# ============================================================
+
+def venue_win_rate(
+    history,
+    team,
+    venue
+):
+
+    if venue == "NEW":
+
+        return 0.5
+
+
+    matches = history[
+
+        (
+            history["venue"]
+            ==
+            venue
+        )
+
+        &
+
+        (
+            (
+                history["team1"]
+                ==
+                team
+            )
+
+            |
+
+            (
+                history["team2"]
+                ==
+                team
+            )
+        )
+    ]
+
+
+    if len(matches) == 0:
+
+        return 0.5
+
+
+    wins = (
+        matches["winner"]
+        ==
+        team
+    ).sum()
+
+
+    return (
+        wins
+        /
+        len(matches)
+    )
+
+
+# ============================================================
+# APPEND PREDICTION TO LOG
+# ============================================================
+
+def append_log(
+    file_path,
+    row
+):
+
+    new_row = pd.DataFrame(
+        [row]
+    )
+
+
+    if file_path.exists():
+
+        old = pd.read_csv(
+            file_path
+        )
+
+        final = pd.concat(
+            [
+                old,
+                new_row
+            ],
+            ignore_index=True
+        )
+
+    else:
+
+        final = new_row
+
+
+    final.to_csv(
+        file_path,
+        index=False
+    )
+
+
+# ============================================================
+# START PREDICTOR
+# ============================================================
+
+print("\n========================================")
+print("T20 CRICKET AI PREDICTOR")
+print("========================================")
+
+print(
+    "\nOne prediction interface."
+)
+
+print(
+    "The system automatically selects "
+    "the appropriate model."
+)
+
+
+# ============================================================
+# GET TEAMS
+# ============================================================
+
+raw_team1 = input(
+    "\nTeam 1: "
+)
+
+raw_team2 = input(
+    "Team 2: "
+)
+
+
+# ============================================================
+# VALIDATE TEAMS AND SELECT MODEL
+# ============================================================
+
+try:
+
+    team1 = normalize_team(
+        raw_team1
     )
 
     team2 = normalize_team(
-        team2_input
+        raw_team2
     )
 
-    if team2 is None:
 
-        print(
-            "Team not found in dataset. "
-            "Please enter a valid team."
+    if team1 == team2:
+
+        raise ValueError(
+            "Team 1 and Team 2 "
+            "cannot be the same."
         )
 
-        continue
 
-    if team2 == team1:
-
-        print(
-            "Team 2 must be different "
-            "from Team 1."
-        )
-
-        continue
-
-    break
-
-
-# -------------------------------------------------
-# Venue Input Validation
-# -------------------------------------------------
-
-while True:
-
-    venue_input = input(
-        "Enter Venue or City: "
-    )
-
-    venue = resolve_venue(
-        venue_input
-    )
-
-    if venue is not None:
-        break
-
-    print(
-        "Venue not found. "
-        "Please try another venue or city name."
-    )
-
-
-# -------------------------------------------------
-# Toss Winner Validation
-# -------------------------------------------------
-
-while True:
-
-    toss_input = input(
-        "Enter Toss Winner: "
-    )
-
-    toss_winner = normalize_team(
-        toss_input
-    )
-
-    if toss_winner not in [
+    (
+        model,
+        history,
+        model_name,
+        model_mode
+    ) = select_model(
         team1,
         team2
-    ]:
-
-        print(
-            "Invalid toss winner."
-        )
-
-        print(
-            "Toss winner must be either",
-            team1,
-            "or",
-            team2
-        )
-
-        continue
-
-    break
-
-
-# -------------------------------------------------
-# Calculate features automatically
-# -------------------------------------------------
-
-toss_winner_is_team1 = (
-    1
-    if toss_winner == team1
-    else 0
-)
-
-team1_historical = historical_win_rate(
-    team1
-)
-
-team2_historical = historical_win_rate(
-    team2
-)
-
-team1_recent = recent_win_rate(
-    team1
-)
-
-team2_recent = recent_win_rate(
-    team2
-)
-
-team1_h2h, team2_h2h = head_to_head(
-    team1,
-    team2
-)
-
-team1_venue = venue_win_rate(
-    team1,
-    venue
-)
-
-team2_venue = venue_win_rate(
-    team2,
-    venue
-)
-
-
-# -------------------------------------------------
-# Build prediction input
-# -------------------------------------------------
-
-new_match = pd.DataFrame([{
-    "toss_winner_is_team1":
-        toss_winner_is_team1,
-
-    "team1_historical_win_rate":
-        team1_historical,
-
-    "team2_historical_win_rate":
-        team2_historical,
-
-    "team1_recent_win_rate":
-        team1_recent,
-
-    "team2_recent_win_rate":
-        team2_recent,
-
-    "team1_h2h_win_rate":
-        team1_h2h,
-
-    "team2_h2h_win_rate":
-        team2_h2h,
-
-    "team1_venue_win_rate":
-        team1_venue,
-
-    "team2_venue_win_rate":
-        team2_venue
-}])
-
-
-# -------------------------------------------------
-# Final Feature Safety Check
-# -------------------------------------------------
-
-if list(new_match.columns) != saved_features:
-
-    raise ValueError(
-        "Prediction input features do not match "
-        "the saved model feature schema."
     )
 
 
-# -------------------------------------------------
-# Prediction
-# -------------------------------------------------
+    print("\n----------------------------------------")
+    print("MODEL ROUTING")
+    print("----------------------------------------")
 
-prediction = model.predict(
-    new_match
-)[0]
+    print(
+        "Selected model:",
+        model_name
+    )
 
-probabilities = model.predict_proba(
-    new_match
-)[0]
-
-team1_probability = probabilities[1]
-team2_probability = probabilities[0]
+    print(
+        "Mode:",
+        model_mode
+    )
 
 
-# -------------------------------------------------
-# Confidence Level
-# -------------------------------------------------
+    if model_mode == "SHADOW":
 
-confidence = max(
-    team1_probability,
-    team2_probability
-)
+        print(
+            "\nNOTE:"
+        )
 
-if confidence >= 0.70:
+        print(
+            "Champion v1.0 does not support "
+            "this complete team combination."
+        )
 
-    confidence_level = "HIGH"
+        print(
+            "Candidate v1.2 is being used "
+            "in SHADOW mode."
+        )
 
-elif confidence >= 0.60:
 
-    confidence_level = "MEDIUM"
+    # ========================================================
+    # GET VENUE
+    # ========================================================
+
+    raw_venue = input(
+        "\nVenue: "
+    )
+
+
+    venue = normalize_venue(
+        raw_venue,
+        history
+    )
+
+
+    # ========================================================
+    # GET TOSS
+    # ========================================================
+
+    raw_toss = input(
+        "Toss winner "
+        "(leave blank if unknown): "
+    )
+
+
+    toss_winner = normalize_toss(
+        raw_toss,
+        team1,
+        team2
+    )
+
+
+except ValueError as error:
+
+    print("\n========================================")
+    print("INPUT VALIDATION FAILED")
+    print("========================================")
+
+    print(error)
+
+    print(
+        "\nPrediction NOT generated."
+    )
+
+    print(
+        "Prediction NOT logged."
+    )
+
+    raise SystemExit(1)
+
+
+# ============================================================
+# TOSS FEATURE
+# ============================================================
+
+if toss_winner is None:
+
+    toss_feature = 0.5
+
+
+elif toss_winner == team1:
+
+    toss_feature = 1.0
+
 
 else:
 
-    confidence_level = "LOW"
+    toss_feature = 0.0
 
 
-# -------------------------------------------------
-# Output
-# -------------------------------------------------
+# ============================================================
+# BUILD FEATURE VALUES
+# ============================================================
+
+feature_values = {
+
+    "toss_winner_is_team1":
+        toss_feature,
+
+    "team1_historical_win_rate":
+        historical_win_rate(
+            history,
+            team1
+        ),
+
+    "team2_historical_win_rate":
+        historical_win_rate(
+            history,
+            team2
+        ),
+
+    "team1_recent_win_rate":
+        recent_win_rate(
+            history,
+            team1
+        ),
+
+    "team2_recent_win_rate":
+        recent_win_rate(
+            history,
+            team2
+        ),
+
+    "team1_h2h_win_rate":
+        h2h_win_rate(
+            history,
+            team1,
+            team2
+        ),
+
+    "team2_h2h_win_rate":
+        h2h_win_rate(
+            history,
+            team2,
+            team1
+        ),
+
+    "team1_venue_win_rate":
+        venue_win_rate(
+            history,
+            team1,
+            venue
+        ),
+
+    "team2_venue_win_rate":
+        venue_win_rate(
+            history,
+            team2,
+            venue
+        )
+}
+
+
+# ============================================================
+# CREATE MODEL INPUT
+# ============================================================
+
+X = pd.DataFrame(
+    [feature_values],
+    columns=FEATURES
+)
+
+
+# ============================================================
+# DISPLAY VALIDATED INPUT
+# ============================================================
+
+print("\n========================================")
+print("VALIDATED INPUT")
+print("========================================")
 
 print(
-    "\n--- MATCH DETAILS ---"
+    "Team 1:",
+    team1
+)
+
+print(
+    "Team 2:",
+    team2
+)
+
+print(
+    "Venue:",
+    venue
+)
+
+print(
+    "Toss winner:",
+    toss_winner
+    if toss_winner
+    else "UNKNOWN"
+)
+
+
+# ============================================================
+# DISPLAY MODEL FEATURES
+# ============================================================
+
+print("\n========================================")
+print("MODEL FEATURES")
+print("========================================")
+
+
+for feature in FEATURES:
+
+    print(
+        f"{feature}: "
+        f"{feature_values[feature]:.4f}"
+    )
+
+
+# ============================================================
+# GENERATE PREDICTION
+# ============================================================
+
+prediction = int(
+    model.predict(X)[0]
+)
+
+
+probabilities = (
+    model.predict_proba(X)[0]
+)
+
+
+# ============================================================
+# DETERMINE WINNER
+# ============================================================
+
+if prediction == 1:
+
+    predicted_winner = team1
+
+else:
+
+    predicted_winner = team2
+
+
+team1_probability = float(
+    probabilities[1]
+)
+
+team2_probability = float(
+    probabilities[0]
+)
+
+
+# ============================================================
+# DISPLAY PREDICTION
+# ============================================================
+
+print("\n========================================")
+print("PREDICTION RESULT")
+print("========================================")
+
+print(
+    "Model:",
+    model_name
+)
+
+print(
+    "Mode:",
+    model_mode
 )
 
 print(
@@ -742,150 +1343,47 @@ print(
 )
 
 print(
-    "Toss Winner:",
+    "Toss winner:",
     toss_winner
+    if toss_winner
+    else "UNKNOWN"
 )
 
 
 print(
-    "\n--- FEATURE VALUES ---"
+    "\nPredicted winner:"
 )
 
 print(
-    "Team 1 Historical Win Rate:",
-    round(
-        team1_historical * 100,
-        2
-    ),
-    "%"
-)
-
-print(
-    "Team 2 Historical Win Rate:",
-    round(
-        team2_historical * 100,
-        2
-    ),
-    "%"
-)
-
-print(
-    "Team 1 Recent Win Rate:",
-    round(
-        team1_recent * 100,
-        2
-    ),
-    "%"
-)
-
-print(
-    "Team 2 Recent Win Rate:",
-    round(
-        team2_recent * 100,
-        2
-    ),
-    "%"
-)
-
-print(
-    "Team 1 H2H Win Rate:",
-    round(
-        team1_h2h * 100,
-        2
-    ),
-    "%"
-)
-
-print(
-    "Team 2 H2H Win Rate:",
-    round(
-        team2_h2h * 100,
-        2
-    ),
-    "%"
-)
-
-print(
-    "Team 1 Venue Win Rate:",
-    round(
-        team1_venue * 100,
-        2
-    ),
-    "%"
-)
-
-print(
-    "Team 2 Venue Win Rate:",
-    round(
-        team2_venue * 100,
-        2
-    ),
-    "%"
-)
-
-
-# -------------------------------------------------
-# Prediction Result
-# -------------------------------------------------
-
-print(
-    "\n--- PREDICTION RESULT ---"
-)
-
-if prediction == 1:
-
-    predicted_winner = team1
-
-else:
-
-    predicted_winner = team2
-
-
-print(
-    "Predicted Winner:",
     predicted_winner
 )
 
-print(
-    team1,
-    "Win Probability:",
-    round(
-        team1_probability * 100,
-        2
-    ),
-    "%"
-)
 
 print(
-    team2,
-    "Win Probability:",
-    round(
-        team2_probability * 100,
-        2
-    ),
-    "%"
+    f"\n{team1}: "
+    f"{team1_probability * 100:.2f}%"
 )
+
 
 print(
-    "Prediction Confidence:",
-    confidence_level
+    f"{team2}: "
+    f"{team2_probability * 100:.2f}%"
 )
 
 
-# -------------------------------------------------
-# Save Prediction Log
-# -------------------------------------------------
+# ============================================================
+# PREPARE LOG RECORD
+# ============================================================
 
-log_file = (
-    r"K:\Python\Cricinfo_AI_Project\data"
-    r"\prediction_log.csv"
+timestamp = datetime.now().isoformat(
+    timespec="seconds"
 )
 
-prediction_log = pd.DataFrame([{
-    "prediction_time":
-        datetime.now().strftime(
-            "%Y-%m-%d %H:%M:%S"
-        ),
+
+log_row = {
+
+    "prediction_timestamp":
+        timestamp,
 
     "team1":
         team1,
@@ -897,60 +1395,115 @@ prediction_log = pd.DataFrame([{
         venue,
 
     "toss_winner":
-        toss_winner,
+        toss_winner
+        if toss_winner
+        else "UNKNOWN",
 
-    "team1_probability":
-        round(
-            team1_probability * 100,
-            2
-        ),
-
-    "team2_probability":
-        round(
-            team2_probability * 100,
-            2
+    "model_version":
+        (
+            "champion_v1.0"
+            if model_mode == "PRODUCTION"
+            else "candidate_v1.2"
         ),
 
     "predicted_winner":
         predicted_winner,
 
-    "confidence":
-        confidence_level,
+    "team1_probability":
+        team1_probability,
 
-    "model_version":
-        model_package["model_version"],
+    "team2_probability":
+        team2_probability,
 
-    "model_type":
-        model_package["model_type"]
-}])
+    "actual_winner":
+        "",
+
+    "correct_prediction":
+        "",
+
+    "result_status":
+        "PENDING"
+}
 
 
-# -------------------------------------------------
-# Append prediction to existing log
-# or create new log if it does not exist
-# -------------------------------------------------
+# ============================================================
+# LOG ACCORDING TO MODEL MODE
+# ============================================================
 
-if os.path.exists(log_file):
+if model_mode == "PRODUCTION":
 
-    prediction_log.to_csv(
-        log_file,
-        mode="a",
-        header=False,
-        index=False
+    append_log(
+        PRODUCTION_LOG_FILE,
+        log_row
     )
+
+
+    print("\n========================================")
+    print("PRODUCTION LOG")
+    print("========================================")
+
+    print(
+        "Champion prediction logged."
+    )
+
+    print(
+        "File:",
+        PRODUCTION_LOG_FILE
+    )
+
 
 else:
 
-    prediction_log.to_csv(
-        log_file,
-        index=False
+    append_log(
+        SHADOW_LOG_FILE,
+        log_row
     )
 
 
-print(
-    "\nPrediction saved to:"
-)
+    print("\n========================================")
+    print("SHADOW LOG")
+    print("========================================")
 
-print(
-    log_file
-)
+    print(
+        "Candidate prediction logged."
+    )
+
+    print(
+        "File:",
+        SHADOW_LOG_FILE
+    )
+
+
+# ============================================================
+# FINAL MODEL GOVERNANCE MESSAGE
+# ============================================================
+
+print("\n========================================")
+
+if model_mode == "PRODUCTION":
+
+    print(
+        "Champion v1.0 prediction completed."
+    )
+
+    print(
+        "Mode: PRODUCTION"
+    )
+
+
+else:
+
+    print(
+        "Candidate v1.2 shadow prediction completed."
+    )
+
+    print(
+        "Mode: SHADOW"
+    )
+
+    print(
+        "Champion v1.0 remains production."
+    )
+
+
+print("========================================")

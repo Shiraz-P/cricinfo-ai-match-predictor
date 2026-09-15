@@ -1,0 +1,2 @@
+total_matches,champion_correct,candidate_correct,champion_accuracy,candidate_accuracy,difference_percentage_points,both_correct,both_wrong,candidate_improvements,candidate_regressions,discordant_predictions,mcnemar_exact_p_value,alpha,statistically_significant,status
+685,492,495,0.7182481751824817,0.7226277372262774,0.43795620437956373,475,173,20,17,37,0.7428293587290682,0.05,False,KEEP AS SHADOW CANDIDATE

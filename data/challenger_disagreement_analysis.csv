@@ -1,0 +1,43 @@
+date,team1,team2,winner,actual_team1_won,champion_prediction,challenger_prediction,champion_correct,challenger_correct,models_disagree,category,year_month,interpretation
+2025-07-25,Hungary,Romania,Romania,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2025-07,New pipeline corrected a Champion error
+2025-07-26,Rwanda,Malawi,Malawi,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2025-07,New pipeline corrected a Champion error
+2025-08-08,Norway,France,Norway,1,1,0,True,False,True,CHALLENGER_REGRESSION,2025-08,New pipeline introduced an error
+2025-09-30,Zimbabwe,Tanzania,Zimbabwe,1,1,0,True,False,True,CHALLENGER_REGRESSION,2025-09,New pipeline introduced an error
+2025-10-08,Nepal,Kuwait,Nepal,1,1,0,True,False,True,CHALLENGER_REGRESSION,2025-10,New pipeline introduced an error
+2025-10-16,Japan,United Arab Emirates,United Arab Emirates,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2025-10,New pipeline corrected a Champion error
+2025-10-20,England,New Zealand,England,1,0,1,False,True,True,CHALLENGER_IMPROVEMENT,2025-10,New pipeline corrected a Champion error
+2025-10-27,West Indies,Bangladesh,West Indies,1,1,0,True,False,True,CHALLENGER_REGRESSION,2025-10,New pipeline introduced an error
+2025-11-02,Australia,India,India,0,0,1,True,False,True,CHALLENGER_REGRESSION,2025-11,New pipeline introduced an error
+2025-11-02,Cyprus,Bulgaria,Cyprus,1,1,0,True,False,True,CHALLENGER_REGRESSION,2025-11,New pipeline introduced an error
+2025-11-05,West Indies,New Zealand,West Indies,1,0,1,False,True,True,CHALLENGER_IMPROVEMENT,2025-11,New pipeline corrected a Champion error
+2025-11-06,Timor-Leste,Indonesia,Indonesia,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2025-11,New pipeline corrected a Champion error
+2025-11-12,Qatar,Hong Kong,Qatar,1,0,1,False,True,True,CHALLENGER_IMPROVEMENT,2025-11,New pipeline corrected a Champion error
+2025-11-27,Ireland,Bangladesh,Ireland,1,1,0,True,False,True,CHALLENGER_REGRESSION,2025-11,New pipeline introduced an error
+2025-12-04,Nigeria,Zambia,Nigeria,1,1,0,True,False,True,CHALLENGER_REGRESSION,2025-12,New pipeline introduced an error
+2025-12-09,India,South Africa,India,1,1,0,True,False,True,CHALLENGER_REGRESSION,2025-12,New pipeline introduced an error
+2025-12-23,Indonesia,Cambodia,Indonesia,1,1,0,True,False,True,CHALLENGER_REGRESSION,2025-12,New pipeline introduced an error
+2026-01-27,West Indies,South Africa,South Africa,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-01,New pipeline corrected a Champion error
+2026-01-29,Ireland,United Arab Emirates,Ireland,1,1,0,True,False,True,CHALLENGER_REGRESSION,2026-01,New pipeline introduced an error
+2026-01-29,Pakistan,Australia,Pakistan,1,0,1,False,True,True,CHALLENGER_IMPROVEMENT,2026-01,New pipeline corrected a Champion error
+2026-02-10,United Arab Emirates,New Zealand,New Zealand,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-02,New pipeline corrected a Champion error
+2026-02-10,Namibia,Netherlands,Netherlands,0,0,1,True,False,True,CHALLENGER_REGRESSION,2026-02,New pipeline introduced an error
+2026-02-12,Nepal,Italy,Italy,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-02,New pipeline corrected a Champion error
+2026-02-14,Scotland,England,England,0,0,1,True,False,True,CHALLENGER_REGRESSION,2026-02,New pipeline introduced an error
+2026-02-15,Qatar,Bahrain,Qatar,1,1,0,True,False,True,CHALLENGER_REGRESSION,2026-02,New pipeline introduced an error
+2026-02-16,Australia,Sri Lanka,Sri Lanka,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-02,New pipeline corrected a Champion error
+2026-02-17,Scotland,Nepal,Nepal,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-02,New pipeline corrected a Champion error
+2026-02-19,Sri Lanka,Zimbabwe,Zimbabwe,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-02,New pipeline corrected a Champion error
+2026-03-05,India,England,India,1,1,0,True,False,True,CHALLENGER_REGRESSION,2026-03,New pipeline introduced an error
+2026-03-27,Eswatini,Malawi,Malawi,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-03,New pipeline corrected a Champion error
+2026-04-09,Norway,France,France,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-04,New pipeline corrected a Champion error
+2026-05-08,Cyprus,Finland,Finland,0,0,1,True,False,True,CHALLENGER_REGRESSION,2026-05,New pipeline introduced an error
+2026-06-26,Serbia,Luxembourg,Luxembourg,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-06,New pipeline corrected a Champion error
+2026-07-07,England,India,England,1,1,0,True,False,True,CHALLENGER_REGRESSION,2026-07,New pipeline introduced an error
+2026-07-11,England,India,England,1,1,0,True,False,True,CHALLENGER_REGRESSION,2026-07,New pipeline introduced an error
+2026-07-13,Denmark,Hungary,Denmark,1,1,0,True,False,True,CHALLENGER_REGRESSION,2026-07,New pipeline introduced an error
+2026-07-15,Zimbabwe,Bangladesh,Zimbabwe,1,1,0,True,False,True,CHALLENGER_REGRESSION,2026-07,New pipeline introduced an error
+2026-07-19,Zimbabwe,Bangladesh,Bangladesh,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-07,New pipeline corrected a Champion error
+2026-08-08,Brazil,Mexico,Brazil,1,1,0,True,False,True,CHALLENGER_REGRESSION,2026-08,New pipeline introduced an error
+2026-08-08,Mexico,Peru,Mexico,1,1,0,True,False,True,CHALLENGER_REGRESSION,2026-08,New pipeline introduced an error
+2026-08-14,Portugal,Israel,Portugal,1,1,0,True,False,True,CHALLENGER_REGRESSION,2026-08,New pipeline introduced an error
+2026-08-15,Rwanda,Zambia,Zambia,0,1,0,False,True,True,CHALLENGER_IMPROVEMENT,2026-08,New pipeline corrected a Champion error

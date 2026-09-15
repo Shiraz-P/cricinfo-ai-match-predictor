@@ -15,13 +15,37 @@ df = pd.read_csv(log_file)
 # -------------------------------------------------
 
 if "actual_winner" not in df.columns:
-    df["actual_winner"] = ""
+    df["actual_winner"] = pd.NA
 
 if "correct_prediction" not in df.columns:
-    df["correct_prediction"] = ""
+    df["correct_prediction"] = pd.NA
 
 if "result_status" not in df.columns:
     df["result_status"] = "PENDING"
+
+
+# -------------------------------------------------
+# Normalize result status
+# -------------------------------------------------
+
+df["result_status"] = (
+    df["result_status"]
+    .astype("string")
+    .str.strip()
+    .str.upper()
+)
+
+
+# -------------------------------------------------
+# Normalize correct_prediction
+# -------------------------------------------------
+
+df["correct_prediction"] = (
+    df["correct_prediction"]
+    .astype("string")
+    .str.strip()
+    .str.lower()
+)
 
 
 # -------------------------------------------------
@@ -35,19 +59,21 @@ pending = df[
 ]
 
 completed = df[
-    df["result_status"].isin(
-        ["CORRECT", "INCORRECT"]
-    )
+    df["result_status"] == "COMPLETED"
 ]
 
-correct = df[
-    df["result_status"] == "CORRECT"
+correct = completed[
+    completed["correct_prediction"] == "true"
 ]
 
-incorrect = df[
-    df["result_status"] == "INCORRECT"
+incorrect = completed[
+    completed["correct_prediction"] == "false"
 ]
 
+
+# -------------------------------------------------
+# Print monitoring summary
+# -------------------------------------------------
 
 print("\n================================")
 print("MODEL MONITORING SUMMARY")
@@ -122,18 +148,20 @@ for confidence_level in [
 
     confidence_data = completed[
         completed["confidence"]
-        ==
-        confidence_level
+        == confidence_level
     ]
 
     if len(confidence_data) > 0:
 
+        confidence_correct = confidence_data[
+            confidence_data["correct_prediction"]
+            == "true"
+        ]
+
         confidence_accuracy = (
-            confidence_data[
-                "result_status"
-            ]
-            .eq("CORRECT")
-            .mean()
+            len(confidence_correct)
+            /
+            len(confidence_data)
         )
 
         print(
@@ -162,48 +190,58 @@ for confidence_level in [
 
 print("\n--- ACCURACY BY MODEL VERSION ---")
 
-versions = df[
-    "model_version"
-].dropna().unique()
+if "model_version" in df.columns:
 
-for version in versions:
+    versions = df[
+        "model_version"
+    ].dropna().unique()
 
-    version_data = completed[
-        completed["model_version"]
-        ==
-        version
-    ]
+    for version in versions:
 
-    if len(version_data) > 0:
+        version_data = completed[
+            completed["model_version"]
+            == version
+        ]
 
-        version_accuracy = (
-            version_data[
-                "result_status"
+        if len(version_data) > 0:
+
+            version_correct = version_data[
+                version_data["correct_prediction"]
+                == "true"
             ]
-            .eq("CORRECT")
-            .mean()
-        )
 
-        print(
-            "Version",
-            version,
-            ":",
-            round(
-                version_accuracy * 100,
-                2
-            ),
-            "%",
-            "- Matches:",
-            len(version_data)
-        )
+            version_accuracy = (
+                len(version_correct)
+                /
+                len(version_data)
+            )
 
-    else:
+            print(
+                "Version",
+                version,
+                ":",
+                round(
+                    version_accuracy * 100,
+                    2
+                ),
+                "%",
+                "- Matches:",
+                len(version_data)
+            )
 
-        print(
-            "Version",
-            version,
-            ": No completed predictions"
-        )
+        else:
+
+            print(
+                "Version",
+                version,
+                ": No completed predictions"
+            )
+
+else:
+
+    print(
+        "model_version column not available"
+    )
 
 
 # -------------------------------------------------
@@ -217,8 +255,16 @@ recent_columns = [
     "team1",
     "team2",
     "predicted_winner",
+    "actual_winner",
     "confidence",
+    "correct_prediction",
     "result_status"
+]
+
+recent_columns = [
+    column
+    for column in recent_columns
+    if column in df.columns
 ]
 
 print(

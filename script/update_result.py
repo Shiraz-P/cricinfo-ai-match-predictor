@@ -1,32 +1,63 @@
+import os
 import pandas as pd
 
 
-# -------------------------------------------------
-# Prediction log file
-# -------------------------------------------------
+# ============================================================
+# CRICINFO AI PROJECT
+# Update Production Prediction Result
+# ============================================================
 
-log_file = r"K:\Python\Cricinfo_AI_Project\data\prediction_log.csv"
-
-df = pd.read_csv(log_file)
+PREDICTION_LOG = r"K:\Python\Cricinfo_AI_Project\data\prediction_log.csv"
 
 
-# -------------------------------------------------
-# Create monitoring columns if they do not exist
-# -------------------------------------------------
+# ============================================================
+# CHECK FILE
+# ============================================================
 
-if "actual_winner" not in df.columns:
-    df["actual_winner"] = ""
+if not os.path.exists(PREDICTION_LOG):
+    print("\nERROR: Prediction log file not found.")
+    print("Expected file:")
+    print(PREDICTION_LOG)
+    raise SystemExit
 
+
+# ============================================================
+# LOAD PREDICTION LOG
+# ============================================================
+
+df = pd.read_csv(PREDICTION_LOG)
+
+
+# ============================================================
+# MAKE SURE REQUIRED RESULT COLUMNS EXIST
+# ============================================================
+
+# Text columns
+for column in ["actual_winner", "result_status"]:
+
+    if column not in df.columns:
+        df[column] = pd.Series(pd.NA, index=df.index, dtype="string")
+    else:
+        df[column] = df[column].astype("string")
+
+
+# Boolean column
 if "correct_prediction" not in df.columns:
-    df["correct_prediction"] = ""
 
-if "result_status" not in df.columns:
-    df["result_status"] = "PENDING"
+    df["correct_prediction"] = pd.Series(
+        pd.NA,
+        index=df.index,
+        dtype="boolean"
+    )
+
+else:
+
+    df["correct_prediction"] = df["correct_prediction"].astype("boolean")
 
 
-# -------------------------------------------------
-# Show existing predictions
-# -------------------------------------------------
+# ============================================================
+# DISPLAY PREDICTION LOG
+# ============================================================
 
 print("\n--- PREDICTION LOG ---")
 
@@ -40,186 +71,134 @@ display_columns = [
     "result_status"
 ]
 
+# Only display columns that actually exist
+display_columns = [
+    column
+    for column in display_columns
+    if column in df.columns
+]
+
 print(
-    df[display_columns]
-    .tail(20)
-    .to_string()
+    df[display_columns].to_string()
 )
 
 
-# -------------------------------------------------
-# Ask which prediction to update
-# -------------------------------------------------
+# ============================================================
+# ASK USER WHICH ROW TO UPDATE
+# ============================================================
 
 while True:
 
-    row_input = input(
-        "\nEnter row number to update "
-        "or type exit: "
+    user_input = input(
+        "\nEnter row number to update or type exit: "
     ).strip()
 
-    if row_input.lower() == "exit":
+    if user_input.lower() == "exit":
+        print("\nNo changes made.")
+        raise SystemExit
 
-        print("\nNo result updated.")
-        exit()
+    try:
+        row_number = int(user_input)
 
-    if row_input.isdigit():
+    except ValueError:
+        print("Please enter a valid row number.")
+        continue
 
-        row_number = int(row_input)
+    if row_number not in df.index:
+        print("Invalid row number.")
+        continue
 
-        if row_number in df.index:
-            break
-
-    print("Invalid row number.")
+    break
 
 
-# -------------------------------------------------
-# Match details
-# -------------------------------------------------
+# ============================================================
+# SELECT MATCH
+# ============================================================
 
-team1 = df.loc[
-    row_number,
-    "team1"
-]
+team1 = str(
+    df.loc[row_number, "team1"]
+).strip()
 
-team2 = df.loc[
-    row_number,
-    "team2"
-]
+team2 = str(
+    df.loc[row_number, "team2"]
+).strip()
 
-predicted_winner = df.loc[
-    row_number,
-    "predicted_winner"
-]
+predicted_winner = str(
+    df.loc[row_number, "predicted_winner"]
+).strip()
 
 
 print("\nSelected match:")
+print(f"{team1} vs {team2}")
 
 print(
-    team1,
-    "vs",
-    team2
-)
-
-print(
-    "Predicted Winner:",
-    predicted_winner
+    f"Predicted Winner: {predicted_winner}"
 )
 
 
-# -------------------------------------------------
-# Ask for actual winner
-# -------------------------------------------------
+# ============================================================
+# ASK FOR ACTUAL WINNER
+# ============================================================
 
 while True:
 
     actual_winner = input(
-        f"Enter Actual Winner "
-        f"({team1}/{team2}) "
-        f"or type skip: "
+        f"Enter Actual Winner ({team1}/{team2}) "
+        "or type skip: "
     ).strip()
 
-    # ---------------------------------------------
-    # Result not known yet
-    # ---------------------------------------------
+    # --------------------------------------------------------
+    # SKIP
+    # --------------------------------------------------------
 
     if actual_winner.lower() == "skip":
 
-        df.loc[
-            row_number,
-            "actual_winner"
-        ] = ""
-
-        df.loc[
-            row_number,
-            "correct_prediction"
-        ] = ""
-
-        df.loc[
-            row_number,
-            "result_status"
-        ] = "PENDING"
-
-        df.to_csv(
-            log_file,
-            index=False
-        )
-
-        print("\n--- RESULT NOT UPDATED ---")
-
-        print(
-            "Prediction remains PENDING."
-        )
-
-        print(
-            "You can update this row later "
-            "when the real result is known."
-        )
-
-        break
+        print("\nUpdate skipped.")
+        raise SystemExit
 
 
-    # ---------------------------------------------
-    # Team 1 won
-    # ---------------------------------------------
+    # --------------------------------------------------------
+    # VALIDATE TEAM
+    # --------------------------------------------------------
 
     if actual_winner.lower() == team1.lower():
 
         actual_winner = team1
-
         break
-
-
-    # ---------------------------------------------
-    # Team 2 won
-    # ---------------------------------------------
 
     elif actual_winner.lower() == team2.lower():
 
         actual_winner = team2
-
         break
-
 
     else:
 
         print(
-            "Actual winner must be either",
-            team1,
-            "or",
-            team2,
-            "or type skip."
+            f"Invalid winner. Please enter "
+            f"{team1} or {team2}."
         )
 
 
-# -------------------------------------------------
-# Stop here if result is pending
-# -------------------------------------------------
-
-if actual_winner.lower() == "skip":
-
-    exit()
-
-
-# -------------------------------------------------
-# Compare prediction with actual winner
-# -------------------------------------------------
+# ============================================================
+# CHECK WHETHER MODEL PREDICTION WAS CORRECT
+# ============================================================
 
 correct_prediction = (
-    predicted_winner
+    predicted_winner.lower()
     ==
-    actual_winner
+    actual_winner.lower()
 )
 
 
-# -------------------------------------------------
-# Update result
-# -------------------------------------------------
+# ============================================================
+# UPDATE RESULT
+# ============================================================
 
 df.loc[
     row_number,
     "actual_winner"
 ] = actual_winner
+
 
 df.loc[
     row_number,
@@ -227,124 +206,68 @@ df.loc[
 ] = correct_prediction
 
 
-if correct_prediction:
-
-    df.loc[
-        row_number,
-        "result_status"
-    ] = "CORRECT"
-
-else:
-
-    df.loc[
-        row_number,
-        "result_status"
-    ] = "INCORRECT"
+df.loc[
+    row_number,
+    "result_status"
+] = "COMPLETED"
 
 
-# -------------------------------------------------
-# Save updated log
-# -------------------------------------------------
+# ============================================================
+# SAVE UPDATED CSV
+# ============================================================
 
 df.to_csv(
-    log_file,
+    PREDICTION_LOG,
     index=False
 )
 
 
-# -------------------------------------------------
-# Result
-# -------------------------------------------------
+# ============================================================
+# DISPLAY RESULT
+# ============================================================
 
-print("\n--- RESULT UPDATED ---")
+print("\n========================================")
+print("PREDICTION RESULT UPDATED")
+print("========================================")
+
+print(f"Match             : {team1} vs {team2}")
 
 print(
-    "Predicted Winner:",
-    predicted_winner
+    f"Predicted Winner  : {predicted_winner}"
 )
 
 print(
-    "Actual Winner:",
-    actual_winner
+    f"Actual Winner     : {actual_winner}"
 )
 
 print(
-    "Prediction Correct:",
-    correct_prediction
+    f"Correct Prediction: {correct_prediction}"
 )
 
 print(
-    "Result Status:",
-    df.loc[
-        row_number,
-        "result_status"
-    ]
+    "Result Status     : COMPLETED"
 )
 
 
-# -------------------------------------------------
-# Monitoring Summary
-# -------------------------------------------------
+# ============================================================
+# SIMPLE MODEL FEEDBACK
+# ============================================================
 
-completed = df[
-    df["result_status"].isin(
-        [
-            "CORRECT",
-            "INCORRECT"
-        ]
-    )
-].copy()
-
-
-pending = df[
-    df["result_status"] == "PENDING"
-].copy()
-
-
-print("\n--- MODEL MONITORING ---")
-
-print(
-    "Total logged predictions:",
-    len(df)
-)
-
-print(
-    "Completed predictions:",
-    len(completed)
-)
-
-print(
-    "Pending predictions:",
-    len(pending)
-)
-
-
-# -------------------------------------------------
-# Live Accuracy
-# -------------------------------------------------
-
-if len(completed) > 0:
-
-    monitoring_accuracy = (
-        completed[
-            "result_status"
-        ]
-        .eq("CORRECT")
-        .mean()
-    )
+if correct_prediction:
 
     print(
-        "Live prediction accuracy:",
-        round(
-            monitoring_accuracy * 100,
-            2
-        ),
-        "%"
+        "\nMODEL RESULT: CORRECT PREDICTION"
     )
 
 else:
 
     print(
-        "Live prediction accuracy: "
-        "Not available yet."
+        "\nMODEL RESULT: INCORRECT PREDICTION"
     )
+
+
+print("\nPrediction log updated successfully.")
+
+print(
+    f"File: {PREDICTION_LOG}"
+)

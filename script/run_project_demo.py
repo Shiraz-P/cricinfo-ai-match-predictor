@@ -1,60 +1,33 @@
 import subprocess
 import sys
-
 from pathlib import Path
 
 
-# -------------------------------------------------
-# Project Paths
-# -------------------------------------------------
+ROOT = Path(r"K:\Python\Cricinfo_AI_Project")
 
-SCRIPT_DIR = Path(__file__).resolve().parent
+SCRIPT_DIR = ROOT / "script"
+DATA_DIR = ROOT / "data"
+MODEL_DIR = ROOT / "model"
 
-PROJECT_DIR = SCRIPT_DIR.parent
-
-DATA_DIR = PROJECT_DIR / "data"
-
-MODEL_DIR = PROJECT_DIR / "model"
-
-
-# -------------------------------------------------
-# Helper: Run another Python script
-# -------------------------------------------------
 
 def run_script(script_name):
 
     script_path = SCRIPT_DIR / script_name
 
+    print("\n========================================")
+    print(f"RUNNING: {script_name}")
+    print("========================================\n")
+
     if not script_path.exists():
 
         print(
-            "\nERROR:"
+            f"ERROR: Script not found:\n"
+            f"{script_path}"
         )
 
-        print(
-            "Script not found:"
-        )
-
-        print(
-            script_path
-        )
+        input("\nPress Enter to return to menu...")
 
         return
-
-
-    print(
-        "\n========================================"
-    )
-
-    print(
-        "RUNNING:",
-        script_name
-    )
-
-    print(
-        "========================================\n"
-    )
-
 
     try:
 
@@ -63,551 +36,308 @@ def run_script(script_name):
                 sys.executable,
                 str(script_path)
             ],
+            cwd=str(ROOT),
             check=False
         )
 
     except Exception as error:
 
-        print(
-            "\nERROR while running script:"
-        )
+        print("\nERROR while running script:")
+        print(error)
+
+    input("\nPress Enter to return to menu...")
+
+
+def project_status():
+
+    print("\n========================================")
+    print("PROJECT STATUS")
+    print("========================================")
+
+    files = {
+
+        "Core dataset":
+            DATA_DIR / "matches.csv",
+
+        "Candidate dataset v2":
+            DATA_DIR / "matches_candidate_v2.csv",
+
+        "Champion features":
+            DATA_DIR / "matches_features.csv",
+
+        "Candidate features":
+            DATA_DIR / "matches_candidate_features.csv",
+
+        "Champion model v1.0":
+            MODEL_DIR / "cricket_model.pkl",
+
+        "Challenger model v1.1":
+            MODEL_DIR / "cricket_model_challenger_v11.pkl",
+
+        "Candidate model v1.2":
+            MODEL_DIR / "cricket_model_ablation_9feature.pkl",
+
+        "Production prediction log":
+            DATA_DIR / "prediction_log.csv",
+
+        "Candidate v1.2 shadow log":
+            DATA_DIR / "shadow_v12_log.csv"
+    }
+
+    for name, path in files.items():
+
+        status = "OK" if path.exists() else "MISSING"
 
         print(
-            error
+            f"{name:<32} : {status}"
         )
 
+    print("\n----------------------------------------")
+    print("MODEL GOVERNANCE")
+    print("----------------------------------------")
 
-# -------------------------------------------------
-# Helper: Pause before returning to menu
-# -------------------------------------------------
+    print("Production Champion : v1.0")
+    print("Challenger v1.1     : REJECTED")
+    print("Candidate v1.2      : SHADOW")
+    print("Production changed  : NO")
 
-def pause():
-
-    input(
-        "\nPress ENTER to return to main menu..."
-    )
-
-
-# -------------------------------------------------
-# Project Status
-# -------------------------------------------------
-
-def show_project_status():
+    print("\n----------------------------------------")
+    print("VALIDATION SUMMARY")
+    print("----------------------------------------")
 
     print(
-        "\n========================================"
+        "Champion v1.0 common-set accuracy : 71.82%"
     )
 
     print(
-        "CRICINFO AI - PROJECT STATUS"
+        "Candidate v1.2 common-set accuracy: 72.26%"
     )
 
     print(
-        "========================================"
-    )
-
-
-    champion_model = (
-        MODEL_DIR
-        /
-        "cricket_model.pkl"
-    )
-
-
-    challenger_model = (
-        MODEL_DIR
-        /
-        "cricket_model_v1_1_candidate.pkl"
-    )
-
-
-    feature_data = (
-        DATA_DIR
-        /
-        "matches_features.csv"
-    )
-
-
-    shadow_log = (
-        DATA_DIR
-        /
-        "shadow_comparison_log.csv"
-    )
-
-
-    print(
-        "\nProject Directory:"
+        "Observed improvement              : +0.44 pp"
     )
 
     print(
-        PROJECT_DIR
-    )
-
-
-    print(
-        "\n--- DATASET ---"
+        "McNemar p-value                   : 0.742829"
     )
 
     print(
-        "Feature Dataset:",
-        (
-            "AVAILABLE"
-            if feature_data.exists()
-            else "MISSING"
-        )
+        "Statistically significant         : NO"
     )
 
+    print("\nDecision:")
 
     print(
-        "\n--- MODEL STATUS ---"
+        "Champion v1.0 remains production."
     )
 
     print(
-        "Champion v1.0:",
-        (
-            "AVAILABLE"
-            if champion_model.exists()
-            else "MISSING"
-        )
+        "Candidate v1.2 continues in shadow mode."
     )
 
-    print(
-        "Challenger v1.1:",
-        (
-            "AVAILABLE"
-            if challenger_model.exists()
-            else "MISSING"
-        )
-    )
+    input("\nPress Enter to return to menu...")
 
-
-    print(
-        "\n--- CURRENT MODEL ROLES ---"
-    )
-
-    print(
-        "Champion:"
-    )
-
-    print(
-        "Logistic Regression v1.0"
-    )
-
-    print(
-        "Features: 9"
-    )
-
-    print(
-        "Holdout Accuracy: 71.82%"
-    )
-
-
-    print(
-        "\nChallenger:"
-    )
-
-    print(
-        "Logistic Regression v1.1-candidate"
-    )
-
-    print(
-        "Features: 11"
-    )
-
-    print(
-        "Holdout Accuracy: 72.41%"
-    )
-
-    print(
-        "Brier Score: 0.1928"
-    )
-
-
-    print(
-        "\n--- SHADOW TESTING ---"
-    )
-
-    print(
-        "Shadow Log:",
-        (
-            "AVAILABLE"
-            if shadow_log.exists()
-            else "NOT CREATED"
-        )
-    )
-
-
-    print(
-        "\nProduction Model:"
-    )
-
-    print(
-        "v1.0 remains Champion."
-    )
-
-    print(
-        "v1.1 remains Challenger / Shadow."
-    )
-
-
-    print(
-        "\nPromotion Status:"
-    )
-
-    print(
-        "NOT READY FOR PROMOTION"
-    )
-
-    print(
-        "Live ground-truth collection is still in progress."
-    )
-
-
-# -------------------------------------------------
-# Show Main Menu
-# -------------------------------------------------
 
 def show_menu():
 
-    print(
-        "\n"
-        "========================================"
-    )
+    print("\n")
+    print("=" * 62)
+    print("CRICINFO AI PROJECT - MAIN MENU")
+    print("=" * 62)
 
-    print(
-        "CRICINFO AI - PROJECT DEMONSTRATION"
-    )
+    print(" 1. Project Status")
+    print(" 2. Dataset Analysis")
+    print(" 3. Predict Match - Auto Model Selection")
+    print(" 4. Champion vs Challenger")
+    print(" 5. Model Monitoring")
+    print(" 6. Mean-Based Drift Analysis")
+    print(" 7. Statistical Drift Analysis")
+    print(" 8. Calibration Analysis")
+    print(" 9. Temporal Error Analysis")
+    print("10. Feature Reliability Analysis")
+    print("11. Shadow Model Monitoring")
+    print("12. Retraining Readiness")
+    print("13. Reliability Ablation Results")
+    print("14. Validate v1.1 Candidate")
+    print("15. Update Production Prediction Result")
+    print("16. Update Legacy Shadow Result")
 
-    print(
-        "========================================"
-    )
+    print("-" * 62)
 
-    print(
-        "\n1. Project Status"
-    )
+    print("17. Candidate v1.2 Shadow Prediction")
+    print("18. Candidate v1.2 Shadow Monitoring")
+    print("19. Update Candidate v1.2 Result")
 
-    print(
-        "2. Dataset Analysis"
-    )
+    print("-" * 62)
 
-    print(
-        "3. Predict Match - Champion v1.0"
-    )
+    print(" 0. Exit")
 
-    print(
-        "4. Champion vs Challenger"
-    )
+    print("=" * 62)
 
-    print(
-        "5. Model Monitoring"
-    )
 
-    print(
-        "6. Mean-Based Drift Analysis"
-    )
+while True:
 
-    print(
-        "7. Statistical Drift Analysis"
-    )
+    show_menu()
 
-    print(
-        "8. Calibration Analysis"
-    )
+    choice = input(
+        "\nSelect option: "
+    ).strip()
 
-    print(
-        "9. Temporal Error Analysis"
-    )
 
-    print(
-        "10. Feature Reliability Analysis"
-    )
+    if choice == "1":
 
-    print(
-        "11. Shadow Model Monitoring"
-    )
+        project_status()
 
-    print(
-        "12. Retraining Readiness"
-    )
 
-    print(
-        "13. Reliability Ablation Results"
-    )
+    elif choice == "2":
 
-    print(
-        "14. Validate v1.1 Candidate"
-    )
+        run_script(
+            "analyze_dataset.py"
+        )
 
-    print(
-        "15. Update Production Prediction Result"
-    )
 
-    print(
-        "16. Update Shadow Result"
-    )
+    elif choice == "3":
 
-    print(
-        "\n0. Exit"
-    )
+        run_script(
+            "predict_match.py"
+        )
 
 
-# -------------------------------------------------
-# Main Program
-# -------------------------------------------------
+    elif choice == "4":
 
-def main():
+        run_script(
+            "compare_models_live.py"
+        )
 
-    while True:
 
-        show_menu()
+    elif choice == "5":
 
-        choice = input(
-            "\nSelect option: "
-        ).strip()
+        run_script(
+            "monitor_model.py"
+        )
 
 
-        # -----------------------------------------
-        # Exit
-        # -----------------------------------------
+    elif choice == "6":
 
-        if choice == "0":
+        run_script(
+            "drift_analysis.py"
+        )
 
-            print(
-                "\nExiting Cricinfo AI Demo."
-            )
 
-            print(
-                "Thank you."
-            )
+    elif choice == "7":
 
-            break
+        run_script(
+            "statistical_drift.py"
+        )
 
 
-        # -----------------------------------------
-        # Project Status
-        # -----------------------------------------
+    elif choice == "8":
 
-        elif choice == "1":
+        run_script(
+            "calibration_analysis.py"
+        )
 
-            show_project_status()
 
-            pause()
+    elif choice == "9":
 
+        run_script(
+            "temporal_error_analysis.py"
+        )
 
-        # -----------------------------------------
-        # Dataset Analysis
-        # -----------------------------------------
 
-        elif choice == "2":
+    elif choice == "10":
 
-            run_script(
-                "analyze_dataset.py"
-            )
+        run_script(
+            "feature_reliability.py"
+        )
 
-            pause()
 
+    elif choice == "11":
 
-        # -----------------------------------------
-        # Champion Prediction
-        # -----------------------------------------
+        run_script(
+            "shadow_monitor.py"
+        )
 
-        elif choice == "3":
 
-            run_script(
-                "predict_match.py"
-            )
+    elif choice == "12":
 
-            pause()
+        run_script(
+            "retraining_check.py"
+        )
 
 
-        # -----------------------------------------
-        # Champion vs Challenger
-        # -----------------------------------------
+    elif choice == "13":
 
-        elif choice == "4":
+        run_script(
+            "reliability_ablation.py"
+        )
 
-            run_script(
-                "compare_models_live.py"
-            )
 
-            pause()
+    elif choice == "14":
 
+        run_script(
+            "validate_reliability_candidate.py"
+        )
 
-        # -----------------------------------------
-        # Model Monitoring
-        # -----------------------------------------
 
-        elif choice == "5":
+    elif choice == "15":
 
-            run_script(
-                "monitor_model.py"
-            )
+        run_script(
+            "update_result.py"
+        )
 
-            pause()
 
+    elif choice == "16":
 
-        # -----------------------------------------
-        # Mean-Based Drift
-        # -----------------------------------------
+        run_script(
+            "update_shadow_result.py"
+        )
 
-        elif choice == "6":
 
-            run_script(
-                "drift_analysis.py"
-            )
+    elif choice == "17":
 
-            pause()
+        run_script(
+            "shadow_predict_v12.py"
+        )
 
 
-        # -----------------------------------------
-        # Statistical Drift
-        # -----------------------------------------
+    elif choice == "18":
 
-        elif choice == "7":
+        run_script(
+            "monitor_shadow_v12.py"
+        )
 
-            run_script(
-                "statistical_drift.py"
-            )
 
-            pause()
+    elif choice == "19":
 
+        run_script(
+            "update_shadow_v12_result.py"
+        )
 
-        # -----------------------------------------
-        # Calibration
-        # -----------------------------------------
 
-        elif choice == "8":
+    elif choice == "0":
 
-            run_script(
-                "calibration_analysis.py"
-            )
+        print("\n========================================")
+        print("PROJECT DEMO CLOSED")
+        print("========================================")
 
-            pause()
+        print(
+            "Champion v1.0 remains production."
+        )
 
+        print(
+            "Candidate v1.2 remains shadow."
+        )
 
-        # -----------------------------------------
-        # Temporal Error Analysis
-        # -----------------------------------------
+        break
 
-        elif choice == "9":
 
-            run_script(
-                "temporal_error_analysis.py"
-            )
+    else:
 
-            pause()
+        print(
+            "\nInvalid option."
+        )
 
-
-        # -----------------------------------------
-        # Feature Reliability
-        # -----------------------------------------
-
-        elif choice == "10":
-
-            run_script(
-                "feature_reliability.py"
-            )
-
-            pause()
-
-
-        # -----------------------------------------
-        # Shadow Monitoring
-        # -----------------------------------------
-
-        elif choice == "11":
-
-            run_script(
-                "shadow_monitor.py"
-            )
-
-            pause()
-
-
-        # -----------------------------------------
-        # Retraining Check
-        # -----------------------------------------
-
-        elif choice == "12":
-
-            run_script(
-                "retraining_check.py"
-            )
-
-            pause()
-
-
-        # -----------------------------------------
-        # Reliability Ablation
-        # -----------------------------------------
-
-        elif choice == "13":
-
-            run_script(
-                "reliability_ablation.py"
-            )
-
-            pause()
-
-
-        # -----------------------------------------
-        # Candidate Validation
-        # -----------------------------------------
-
-        elif choice == "14":
-
-            run_script(
-                "validate_reliability_candidate.py"
-            )
-
-            pause()
-
-
-        # -----------------------------------------
-        # Update Production Result
-        # -----------------------------------------
-
-        elif choice == "15":
-
-            run_script(
-                "update_result.py"
-            )
-
-            pause()
-
-
-        # -----------------------------------------
-        # Update Shadow Result
-        # -----------------------------------------
-
-        elif choice == "16":
-
-            run_script(
-                "update_shadow_result.py"
-            )
-
-            pause()
-
-
-        # -----------------------------------------
-        # Invalid Choice
-        # -----------------------------------------
-
-        else:
-
-            print(
-                "\nInvalid option."
-            )
-
-            print(
-                "Please select a number from 0 to 16."
-            )
-
-
-# -------------------------------------------------
-# Program Entry Point
-# -------------------------------------------------
-
-if __name__ == "__main__":
-
-    main()
+        print(
+            "Please select a number from 0 to 19."
+        )

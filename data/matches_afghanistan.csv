@@ -1,0 +1,114 @@
+date,team1,team2,venue,toss_winner,toss_decision,match_type,season,winner
+2010-02-01,Afghanistan,Ireland,Colombo (PSS),,,T20,2010,Ireland
+2010-02-04,Afghanistan,Canada,Colombo (SSC),,,T20,2010,Afghanistan
+2010-02-09,Afghanistan,Ireland,Dubai (DSC),,,T20,2010,Afghanistan
+2010-02-10,Afghanistan,Scotland,Abu Dhabi,,,T20,2010,Afghanistan
+2010-02-12,Afghanistan,Netherlands,Dubai (DSC),,,T20,2010,Netherlands
+2010-02-13,Afghanistan,Ireland,Dubai (DSC),,,T20,2010,Afghanistan
+2010-05-01,Afghanistan,India,Gros Islet,,,T20,2010,India
+2010-05-05,Afghanistan,South Africa,Bridgetown,,,T20,2010,South Africa
+2012-03-14,Afghanistan,Netherlands,Dubai (DSC),,,T20,2012,Afghanistan
+2012-03-18,Afghanistan,Canada,ICCA Dubai,,,T20,2012,Afghanistan
+2012-03-24,Afghanistan,Ireland,Dubai (DSC),,,T20,2012,Ireland
+2012-09-19,Afghanistan,India,Colombo (RPS),,,T20,2012,India
+2012-09-21,Afghanistan,England,Colombo (RPS),,,T20,2012,England
+2013-03-03,Afghanistan,Scotland,Sharjah,,,T20,2013,Afghanistan
+2013-03-04,Afghanistan,Scotland,Sharjah,,,T20,2013,Afghanistan
+2013-09-30,Afghanistan,Kenya,Sharjah,,,T20,2013,Afghanistan
+2013-10-11,Afghanistan,Kenya,Sharjah,,,T20,2013,Kenya
+2013-11-15,Afghanistan,Netherlands,Sharjah,,,T20,2013,Netherlands
+2013-11-16,Afghanistan,Scotland,Sharjah,,,T20,2013,Afghanistan
+2013-11-24,Afghanistan,Kenya,Sharjah,,,T20,2013,Afghanistan
+2013-11-30,Afghanistan,Ireland,Abu Dhabi,,,T20,2013,Ireland
+2013-12-08,Afghanistan,Pakistan,Sharjah,,,T20,2013,Pakistan
+2014-03-16,Bangladesh,Afghanistan,Mirpur,,,T20,2014,Bangladesh
+2014-03-18,Afghanistan,Hong Kong,Chattogram,,,T20,2014,Afghanistan
+2014-03-20,Afghanistan,Nepal,Chattogram,,,T20,2014,Nepal
+2015-07-09,Afghanistan,Netherlands,Edinburgh,,,T20,2015,Afghanistan
+2015-07-10,Afghanistan,United Arab Emirates,Edinburgh,,,T20,2015,Afghanistan
+2015-07-12,Scotland,Afghanistan,Edinburgh,,,T20,2015,Afghanistan
+2015-07-21,Afghanistan,Hong Kong,Dublin (Malahide),,,T20,2015,Hong Kong
+2015-07-23,Afghanistan,Papua New Guinea,Dublin (Malahide),,,T20,2015,Afghanistan
+2015-07-25,Afghanistan,Oman,Dublin,,,T20,2015,Afghanistan
+2015-10-26,Zimbabwe,Afghanistan,Bulawayo,,,T20,2015,Afghanistan
+2015-10-28,Zimbabwe,Afghanistan,Bulawayo,,,T20,2015,Afghanistan
+2015-11-28,Afghanistan,Hong Kong,Abu Dhabi,,,T20,2015,Hong Kong
+2015-11-29,Afghanistan,Oman,Abu Dhabi,,,T20,2015,Afghanistan
+2015-11-30,Afghanistan,Oman,Abu Dhabi,,,T20,2015,Afghanistan
+2016-01-08,Afghanistan,Zimbabwe,Sharjah,,,T20,2016,Afghanistan
+2016-01-10,Afghanistan,Zimbabwe,Sharjah,,,T20,2016,Afghanistan
+2016-02-19,Afghanistan,United Arab Emirates,Fatullah,,,T20,2016,United Arab Emirates
+2016-02-20,Afghanistan,Oman,Fatullah,,,T20,2016,Afghanistan
+2016-02-22,Afghanistan,Hong Kong,Mirpur,,,T20,2016,Afghanistan
+2016-03-08,Afghanistan,Scotland,Nagpur,,,T20,2016,Afghanistan
+2016-03-10,Afghanistan,Hong Kong,Nagpur,,,T20,2016,Afghanistan
+2016-03-12,Afghanistan,Zimbabwe,Nagpur,,,T20,2016,Afghanistan
+2016-03-17,Afghanistan,Sri Lanka,Eden Gardens,,,T20,2016,Sri Lanka
+2016-03-20,Afghanistan,South Africa,Wankhede,,,T20,2016,South Africa
+2016-03-23,Afghanistan,England,Delhi,,,T20,2016,England
+2016-03-27,Afghanistan,West Indies,Nagpur,,,T20,2016,Afghanistan
+2016-12-14,United Arab Emirates,Afghanistan,ICCA Dubai,,,T20,2016,Afghanistan
+2016-12-16,United Arab Emirates,Afghanistan,Dubai (DSC),,,T20,2016,Afghanistan
+2016-12-18,United Arab Emirates,Afghanistan,ICCA Dubai,,,T20,2016,Afghanistan
+2017-01-14,Afghanistan,Ireland,Abu Dhabi,,,T20,2017,Afghanistan
+2017-01-16,United Arab Emirates,Afghanistan,Abu Dhabi,,,T20,2017,Afghanistan
+2017-01-20,Afghanistan,Oman,Dubai (DSC),,,T20,2017,Afghanistan
+2017-01-20,Afghanistan,Ireland,Dubai (DSC),,,T20,2017,Afghanistan
+2017-03-08,Afghanistan,Ireland,Greater Noida,,,T20,2017,Afghanistan
+2017-03-10,Afghanistan,Ireland,Greater Noida,,,T20,2017,Afghanistan
+2017-03-12,Afghanistan,Ireland,Greater Noida,,,T20,2017,Afghanistan
+2017-06-02,West Indies,Afghanistan,Basseterre,,,T20,2017,West Indies
+2017-06-03,West Indies,Afghanistan,Basseterre,,,T20,2017,West Indies
+2017-06-05,West Indies,Afghanistan,Basseterre,,,T20,2017,West Indies
+2018-02-05,Afghanistan,Zimbabwe,Sharjah,,,T20,2018,Afghanistan
+2018-02-06,Afghanistan,Zimbabwe,Sharjah,,,T20,2018,Afghanistan
+2018-06-03,Afghanistan,Bangladesh,Dehradun,,,T20,2018,Afghanistan
+2018-06-05,Afghanistan,Bangladesh,Dehradun,,,T20,2018,Afghanistan
+2018-06-07,Afghanistan,Bangladesh,Dehradun,,,T20,2018,Afghanistan
+2018-08-20,Ireland,Afghanistan,Bready,,,T20,2018,Afghanistan
+2018-08-22,Ireland,Afghanistan,Bready,,,T20,2018,Afghanistan
+2019-02-21,Afghanistan,Ireland,Dehradun,,,T20,2019,Afghanistan
+2019-02-23,Afghanistan,Ireland,Dehradun,,,T20,2019,Afghanistan
+2019-02-24,Afghanistan,Ireland,Dehradun,,,T20,2019,Afghanistan
+2019-09-14,Afghanistan,Zimbabwe,Mirpur,,,T20,2019,Afghanistan
+2019-09-15,Bangladesh,Afghanistan,Mirpur,,,T20,2019,Afghanistan
+2019-09-20,Afghanistan,Zimbabwe,Chattogram,,,T20,2019,Zimbabwe
+2019-09-21,Bangladesh,Afghanistan,Chattogram,,,T20,2019,Bangladesh
+2019-11-14,Afghanistan,West Indies,Lucknow,,,T20,2019,West Indies
+2019-11-16,Afghanistan,West Indies,Lucknow,,,T20,2019,Afghanistan
+2019-11-17,Afghanistan,West Indies,Lucknow,,,T20,2019,Afghanistan
+2020-03-06,Afghanistan,Ireland,Greater Noida,,,T20,2020,Afghanistan
+2020-03-08,Afghanistan,Ireland,Greater Noida,,,T20,2020,Afghanistan
+2020-03-10,Afghanistan,Ireland,Greater Noida,,,T20,2020,No Result
+2021-03-17,Afghanistan,Zimbabwe,Abu Dhabi,,,T20,2021,Afghanistan
+2021-03-19,Afghanistan,Zimbabwe,Abu Dhabi,,,T20,2021,Afghanistan
+2021-03-20,Afghanistan,Zimbabwe,Abu Dhabi,,,T20,2021,Afghanistan
+2021-10-25,Afghanistan,Scotland,Sharjah,,,T20,2021,Afghanistan
+2021-10-29,Afghanistan,Pakistan,Dubai (DSC),,,T20,2021,Pakistan
+2021-10-31,Afghanistan,Namibia,Abu Dhabi,,,T20,2021,Afghanistan
+2021-11-03,Afghanistan,India,Abu Dhabi,,,T20,2021,India
+2021-11-07,Afghanistan,New Zealand,Abu Dhabi,,,T20,2021,New Zealand
+2022-03-03,Bangladesh,Afghanistan,Mirpur,,,T20,2022,Bangladesh
+2022-03-05,Bangladesh,Afghanistan,Mirpur,,,T20,2022,Afghanistan
+2022-06-11,Zimbabwe,Afghanistan,Harare,,,T20,2022,Afghanistan
+2022-06-12,Zimbabwe,Afghanistan,Harare,,,T20,2022,Afghanistan
+2022-06-14,Zimbabwe,Afghanistan,Harare,,,T20,2022,Afghanistan
+2022-08-09,Ireland,Afghanistan,Belfast,,,T20,2022,Ireland
+2022-08-11,Ireland,Afghanistan,Belfast,,,T20,2022,Ireland
+2022-08-12,Ireland,Afghanistan,Belfast,,,T20,2022,Afghanistan
+2022-08-15,Ireland,Afghanistan,Belfast,,,T20,2022,Afghanistan
+2022-08-17,Ireland,Afghanistan,Belfast,,,T20,2022,Ireland
+2022-08-27,Afghanistan,Sri Lanka,Dubai (DSC),,,T20,2022,Afghanistan
+2022-08-30,Afghanistan,Bangladesh,Sharjah,,,T20,2022,Afghanistan
+2022-09-03,Afghanistan,Sri Lanka,Sharjah,,,T20,2022,Sri Lanka
+2022-09-07,Afghanistan,Pakistan,Sharjah,,,T20,2022,Pakistan
+2022-09-08,Afghanistan,India,Dubai (DSC),,,T20,2022,India
+2022-10-22,Afghanistan,England,Perth,,,T20,2022,England
+2022-11-01,Afghanistan,Sri Lanka,Brisbane,,,T20,2022,Sri Lanka
+2022-11-04,Australia,Afghanistan,Adelaide,,,T20,2022,Australia
+2023-02-16,United Arab Emirates,Afghanistan,Abu Dhabi,,,T20,2023,Afghanistan
+2023-02-18,United Arab Emirates,Afghanistan,Abu Dhabi,,,T20,2023,United Arab Emirates
+2023-02-19,United Arab Emirates,Afghanistan,Abu Dhabi,,,T20,2023,Afghanistan
+2023-03-24,Afghanistan,Pakistan,Sharjah,,,T20,2023,Afghanistan
+2023-03-26,Afghanistan,Pakistan,Sharjah,,,T20,2023,Afghanistan
+2023-03-27,Afghanistan,Pakistan,Sharjah,,,T20,2023,Pakistan
